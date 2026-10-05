@@ -1,341 +1,255 @@
 # SUPER CALENDAR
 
-## SYSTEM SPECIFICATION
+## FUNCTIONAL REQUIREMENTS SPECIFICATION
 
 **Project Name:** Super Calendar
-**Document Type:** System Specification
+**Document Type:** Functional Requirements Specification
 **Version:** 1.0
 **Platform:** Mobile Application
-**Development Framework:** Flutter
-**Target Platforms:** Android / iOS
+**Framework:** Flutter
+**Programming Language:** Dart
+**Target Platform:** Android – Prototype
+**Future Platform:** iOS
 
 ---
 
-# 1. DOCUMENT PURPOSE
+# 1. INTRODUCTION
 
-Tài liệu này định nghĩa đặc tả tổng thể của hệ thống **Super Calendar** trước khi tiến hành đặc tả chi tiết từng chức năng.
+## 1.1 Purpose
 
-Tài liệu nhằm xác định:
+Functional Requirements Specification được xây dựng dựa trên System Specification, định hướng sản phẩm, nghiên cứu các ứng dụng tương tự và các yêu cầu về giao diện, trải nghiệm người dùng đã xác định.
 
-* Mục đích của hệ thống.
-* Phạm vi của hệ thống.
-* Đối tượng sử dụng.
-* Các module chính.
-* Mối quan hệ giữa các module.
-* Nguyên tắc hoạt động của hệ thống.
-* Yêu cầu tổng quát về dữ liệu.
-* Yêu cầu tổng quát về giao diện.
-* Yêu cầu tổng quát về kiến trúc.
-* Các giới hạn và định hướng phát triển.
+Tài liệu là cơ sở để:
 
-Các yêu cầu chức năng chi tiết sẽ được mô tả trong tài liệu **Functional Specification** riêng.
+* Thiết kế UI/UX.
+* Xây dựng Use Case.
+* Thiết kế Database.
+* Thiết kế Class Diagram.
+* Phát triển ứng dụng Flutter.
+* Phát triển các thành phần Android Native khi cần.
+* Xây dựng Test Case.
+* Kiểm thử và nghiệm thu hệ thống.
 
 ---
 
 # 2. SYSTEM OVERVIEW
 
-## 2.1. System Introduction
+## 2.1 Product Description
 
-**Super Calendar** là ứng dụng quản lý thời gian và năng suất cá nhân trên thiết bị di động.
-
-Hệ thống tích hợp các chức năng:
+**Super Calendar** là ứng dụng quản lý năng suất cá nhân trên thiết bị di động, kết hợp giữa:
 
 * Calendar.
 * Event.
-* To-do.
 * Goal.
 * Habit.
+* To-do List.
 * Notes.
-* Dashboard.
-* Theme.
-* Widget Template.
-* VIP.
 * Notification.
-* Lock Screen / Quick Note.
-* Settings.
-
-Mục tiêu của hệ thống là cung cấp một không gian thống nhất để người dùng có thể:
-
-> **Plan → Organize → Track → Review**
-
-tức là:
-
-> Lập kế hoạch → Tổ chức → Theo dõi → Đánh giá.
-
----
-
-# 3. SYSTEM OBJECTIVES
-
-Super Calendar được xây dựng với các mục tiêu chính:
-
-### 3.1. Time Management
-
-Cho phép người dùng quản lý lịch trình và sự kiện theo ngày, tuần và tháng.
-
-### 3.2. Task Management
-
-Cho phép người dùng quản lý các công việc cần thực hiện.
-
-### 3.3. Goal Management
-
-Cho phép người dùng thiết lập và theo dõi mục tiêu theo tuần và tháng.
-
-### 3.4. Habit Tracking
-
-Cho phép người dùng xây dựng và theo dõi các thói quen lặp lại.
-
-### 3.5. Note Management
-
-Cho phép người dùng lưu trữ các ghi chú cá nhân và tạo ghi chú nhanh.
-
-### 3.6. Personalization
-
-Cho phép người dùng tùy chỉnh giao diện thông qua Theme và Widget Template.
-
-### 3.7. Quick Access
-
-Cho phép người dùng truy cập các thông tin quan trọng và tạo Quick Note mà không cần mở đầy đủ ứng dụng.
-
----
-
-# 4. SYSTEM SCOPE
-
-## 4.1. In Scope
-
-Phiên bản hệ thống bao gồm:
-
-### Core Functions
-
-* Calendar.
-* Event.
-* To-do.
-* Notes.
-* Goal.
-* Habit.
-
-### Supporting Functions
-
-* Home Dashboard.
-* Notification.
-* Settings.
-
-### Personalization
-
-* Theme.
-* Widget Template.
-* VIP.
-
-### Quick Access
-
 * Lock Screen.
-* Quick Note.
+* Theme.
+* Widget Template.
+* VIP.
+* Template Marketplace.
+
+Mục tiêu của hệ thống là giúp người dùng **lập kế hoạch, thực hiện công việc, theo dõi thói quen và cá nhân hóa cách sử dụng ứng dụng** trong một hệ thống thống nhất.
+
+Sản phẩm tập trung vào bốn định hướng chính:
+
+> **PLAN – DO – PERSONALIZE – SEE IT FIRST**
+
+Trong đó:
+
+* **PLAN:** Quản lý lịch trình bằng Calendar.
+* **DO:** Quản lý công việc bằng To-do.
+* **PERSONALIZE:** Cá nhân hóa bằng Theme và Widget Template.
+* **SEE IT FIRST:** Đưa lịch trình và công việc quan trọng đến nơi người dùng dễ nhìn thấy thông qua Home, Notification và Lock Screen.
 
 ---
 
-## 4.2. Out of Scope
+# 3. GENERAL FUNCTIONAL REQUIREMENTS
 
-Các chức năng sau không thuộc phạm vi bắt buộc của phiên bản đầu tiên:
+## 3.1 Application Navigation
 
-* Social network.
-* Chat.
-* Team collaboration.
-* Public calendar sharing.
-* Online marketplace hoàn chỉnh.
-* AI assistant.
-* Advanced cloud synchronization.
-* Third-party calendar synchronization.
+Ứng dụng phải cung cấp thanh điều hướng chính ở cuối màn hình (**Bottom Navigation Bar**) gồm 5 khu vực:
 
-Các chức năng này có thể được xem xét trong các phiên bản tương lai.
+| STT | Tab      | Chức năng                                       |
+| --- | -------- | ----------------------------------------------- |
+| 1   | Home     | Dashboard, Template Center, thông tin tổng quan |
+| 2   | Calendar | Event, Goal, Habit                              |
+| 3   | To-do    | Quản lý Task                                    |
+| 4   | Notes    | Quản lý Note                                    |
+| 5   | Settings | Cấu hình ứng dụng                               |
 
----
+Home là màn hình mặc định khi người dùng mở ứng dụng.
 
-# 5. TARGET USERS
+Các chức năng:
 
-Hệ thống hướng đến người dùng cá nhân có nhu cầu quản lý:
+* VIP.
+* Theme.
+* Widget Template.
+* Marketplace.
 
-* Lịch trình.
-* Công việc.
-* Mục tiêu.
-* Thói quen.
-* Ghi chú.
-
-Hệ thống có hai cấp độ sử dụng:
-
-```text
-                    USER
-                     │
-            ┌────────┴────────┐
-            │                 │
-          FREE               VIP
-            │                 │
-      Basic Features    Premium Features
-```
+không được tạo thành các tab chính riêng biệt mà được truy cập thông qua Home, Template Center hoặc Settings.
 
 ---
 
-# 6. USER TYPES
+## 3.2 Data Consistency
 
-## 6.1. Free User
+Hệ thống phải sử dụng nguyên tắc **Single Source of Truth**.
 
-Free User được sử dụng các chức năng cơ bản của hệ thống.
+Một dữ liệu nghiệp vụ chỉ được lưu tại nguồn dữ liệu chính.
 
-Bao gồm:
+Ví dụ:
 
-* Home.
-* Calendar.
-* Event.
-* Basic Goal.
-* Basic Habit.
-* To-do.
-* Notes.
-* Basic Theme.
-* Free Templates.
-* Basic Notifications.
-* Basic Settings.
+* Event được lưu trong Event.
+* Task được lưu trong Task.
+* Goal được lưu trong Goal.
+* Habit được lưu trong Habit/HabitOccurrence.
+* Note được lưu trong Note.
+
+Home Dashboard, Notification và Lock Screen chỉ sử dụng dữ liệu từ các nguồn trên.
+
+Không được tạo bản sao dữ liệu chỉ để phục vụ hiển thị.
 
 ---
 
-## 6.2. VIP User
+## 3.3 Local Data Storage
 
-VIP User có toàn bộ quyền của Free User và thêm các tính năng Premium.
+Trong Prototype:
 
-Bao gồm:
-
-* Premium Templates.
-* Custom Color.
-* Custom Typography.
-* Advanced Layout.
-* Theme Builder.
-* Premium Widget customization.
-
-VIP không tạo thành một hệ thống riêng mà là **access level** của User.
+* Local Database là nguồn dữ liệu chính.
+* Không bắt buộc Backend.
+* Không bắt buộc Cloud Synchronization.
+* Dữ liệu phải được lưu sau khi người dùng tạo hoặc chỉnh sửa.
+* Dữ liệu phải còn tồn tại sau khi đóng và mở lại ứng dụng.
 
 ---
 
-# 7. SYSTEM MODULES
-
-Hệ thống được chia thành các module chính:
-
-```text
-                         SUPER CALENDAR
-                                │
-       ┌──────────┬─────────────┼─────────────┬──────────┐
-       │          │             │             │          │
-      HOME     CALENDAR       TO-DO         NOTES    SETTINGS
-                   │
-             ┌─────┼─────┐
-             │     │     │
-           EVENT  GOAL  HABIT
-                         │
-                  HABIT OCCURRENCE
-```
-
-Các hệ thống hỗ trợ:
-
-```text
-Theme
-Template
-VIP
-Notification
-Lock Screen
-Quick Note
-```
+# 4. FUNCTIONAL REQUIREMENTS
 
 ---
 
-# 8. APPLICATION NAVIGATION
+# FR-01 – ACCOUNT MANAGEMENT
 
-Ứng dụng sử dụng **Bottom Navigation Bar** làm navigation chính.
+## 4.1 Description
 
-Gồm 5 mục:
+Account Management cho phép người dùng xem và quản lý thông tin tài khoản, thông tin cá nhân cơ bản và trạng thái VIP.
 
-| Position | Module   | Purpose               |
-| -------- | -------- | --------------------- |
-| 1        | Home     | Dashboard và Template |
-| 2        | Calendar | Event, Goal, Habit    |
-| 3        | To-do    | Task Management       |
-| 4        | Notes    | Note Management       |
-| 5        | Settings | System Configuration  |
+Trong Prototype, hệ thống không bắt buộc phải triển khai hệ thống đăng nhập trực tuyến. User có thể được quản lý dưới dạng local account.
 
-Navigation chính:
+## 4.2 Actor
 
-```text
-Home
-Calendar
-To-do
-Notes
-Settings
-```
+**User**
 
-Các chức năng như VIP, Template, Theme và Lock Screen không được đưa thành tab chính riêng.
+## 4.3 Preconditions
 
-Chúng được truy cập thông qua Home hoặc Settings tùy chức năng.
+* Ứng dụng đã được cài đặt.
+* Ứng dụng khởi chạy thành công.
 
----
+## 4.4 Main Flow
 
-# 9. HOME
+1. User mở Settings.
+2. User chọn Account/Profile.
+3. System hiển thị thông tin tài khoản.
+4. User có thể chỉnh sửa thông tin được hỗ trợ.
+5. User lưu thay đổi.
+6. System kiểm tra dữ liệu.
+7. System lưu thông tin.
+8. System hiển thị thông tin mới.
 
-Home là màn hình tổng quan của hệ thống.
+## 4.5 Data
 
-Home có ba khu vực chính:
+Account có thể bao gồm:
 
-```text
-HOME
-│
-├── Welcome
-│
-├── Today Dashboard
-│
-└── Template Center
-```
+* User ID.
+* Display Name.
+* Email nếu được hỗ trợ.
+* Avatar nếu được hỗ trợ.
+* VIP Status.
+* Created At.
+* Updated At.
 
----
+## 4.6 Business Rules
 
-## 9.1. Welcome
-
-Welcome cung cấp thông tin giới thiệu và hướng dẫn cơ bản cho người dùng.
+* Prototype không bắt buộc Login/Logout online.
+* Không lưu Device PIN hoặc Password của thiết bị.
+* VIP Status phải được sử dụng để kiểm soát các chức năng Premium.
 
 ---
 
-## 9.2. Today Dashboard
+# FR-02 – HOME
 
-Dashboard cung cấp thông tin tổng quan của ngày hiện tại.
+## 5.1 Description
 
-Có thể hiển thị:
+Home là màn hình chính và là màn hình mặc định khi mở Super Calendar.
 
-* Today's Schedule.
-* Task Progress.
-* Today's Goal.
-* Today's Habit.
+Home cung cấp thông tin tổng quan và truy cập nhanh đến các chức năng quan trọng.
 
-Dashboard không sở hữu dữ liệu riêng.
+Home bao gồm:
 
-Dashboard chỉ tổng hợp dữ liệu từ các module tương ứng.
+* App Introduction/Welcome.
+* Basic User Guide.
+* Today Dashboard.
+* Template Center.
+* VIP/Personalization entry point.
 
----
+Home không phải là một Calendar đầy đủ.
 
-## 9.3. Template Center
+## 5.2 Main Flow
 
-Template Center cho phép người dùng:
+1. User mở ứng dụng.
+2. System hiển thị Home.
+3. System tải dữ liệu của ngày hiện tại.
+4. System tổng hợp Event, Task, Goal và Habit.
+5. System hiển thị Today Dashboard.
+6. User có thể xem các công việc/lịch trình quan trọng.
+7. User có thể truy cập Template Center.
+8. User có thể chuyển sang các tab khác.
 
-* Xem Template.
-* Xem Preview.
-* Chọn Template.
-* Sử dụng Free Template.
+## 5.3 Today Dashboard
+
+Today Dashboard có thể hiển thị:
+
+* Today's Events.
+* Today's Tasks.
+* Today's Goals.
+* Today's Habits.
+
+Dashboard phải phản ánh dữ liệu thực tế từ Database.
+
+Ví dụ:
+
+Nếu User hoàn thành Task trong To-do:
+
+> Task Database → Updated → Home Dashboard cũng phải hiển thị trạng thái Completed.
+
+## 5.4 Template Center
+
+Home cung cấp Template Center để người dùng:
+
+* Xem Widget Template.
+* Preview Template.
+* Apply Template.
+* Xem Free Template.
 * Xem Premium Template.
+* Truy cập Marketplace.
 
-Template được phân loại:
+Prototype có thể cung cấp khoảng 3 Free Templates ban đầu.
 
-```text
-FREE
-VIP
-```
+Premium Templates phải hiển thị biểu tượng khóa.
 
 ---
 
-# 10. CALENDAR
+# FR-03 – CALENDAR
 
-Calendar là module trung tâm của hệ thống.
+## 6.1 Description
+
+Calendar là trung tâm quản lý lịch trình của ứng dụng.
+
+Calendar phải hỗ trợ hai chế độ:
+
+* **Week View**
+* **Month View**
 
 Calendar quản lý:
 
@@ -343,164 +257,310 @@ Calendar quản lý:
 * Goal.
 * Habit.
 
-Calendar hỗ trợ hai chế độ:
+## 6.2 Calendar Interface
 
-```text
-WEEK
-MONTH
-```
+Calendar phải có:
+
+* Week/Month switch ở phía trên.
+* Nút **+** ở góc trên bên phải.
+* Khu vực hiển thị ngày.
+* Khu vực hiển thị Event.
+* Khu vực GOALS.
+* Khu vực Habit nếu có dữ liệu.
+
+## 6.3 Create Event – Using +
+
+1. User mở Calendar.
+2. User nhấn **+**.
+3. System mở Create Event.
+4. User chọn Date.
+5. User chọn Start Time.
+6. User chọn End Time.
+7. User nhập Event Information.
+8. User chọn Save.
+9. System validate.
+10. System lưu Event.
+11. Calendar cập nhật.
+
+## 6.4 Create Event – Selecting Date
+
+User cũng có thể tạo Event bằng cách nhấn trực tiếp vào một ngày.
+
+1. User chọn một ngày trên Calendar.
+2. System mở Create Event.
+3. Date được tự động điền theo ngày User vừa chọn.
+4. User chỉ cần nhập các thông tin còn lại.
+5. User Save.
+6. System lưu Event.
+
+User không cần chọn lại Date.
+
+## 6.5 Calendar Navigation
+
+User có thể:
+
+* Chuyển Week/Month.
+* Di chuyển đến tuần trước/sau.
+* Di chuyển đến tháng trước/sau.
+* Quay về Today.
+* Chọn ngày cụ thể.
 
 ---
 
-## 10.1. Week View
+# FR-04 – EVENT MANAGEMENT
 
-Week View hiển thị dữ liệu theo tuần.
+## 7.1 Description
 
-Người dùng có thể:
+Event đại diện cho một hoạt động có **thời gian cụ thể** trong lịch.
 
-* Xem lịch trình.
-* Chọn ngày.
-* Xem Event.
-* Xem Weekly Goal.
-* Xem Habit.
-* Tạo Event.
+Event khác Task:
 
----
+* **Event:** hoạt động được lên lịch tại một thời điểm/khoảng thời gian.
+* **Task:** công việc cần hoàn thành.
 
-## 10.2. Month View
+## 7.2 Event Fields
 
-Month View hiển thị dữ liệu theo tháng.
+Event bao gồm:
 
-Người dùng có thể:
+| Field       | Required |
+| ----------- | -------- |
+| Event ID    | Yes      |
+| Title       | Yes      |
+| Date        | Yes      |
+| Start Time  | Yes      |
+| End Time    | Yes      |
+| Description | No       |
+| Location    | No       |
+| Category    | No       |
+| Color       | No       |
+| Note        | No       |
+| Reminder    | No       |
+| Repeat      | No       |
+| Source      | Yes      |
+| Created At  | Yes      |
+| Updated At  | Yes      |
 
-* Xem lịch trình.
-* Chọn ngày.
-* Xem Event.
-* Xem Monthly Goal.
-* Xem Habit.
-* Tạo Event.
+## 7.3 Event Validation
 
----
+System phải kiểm tra:
 
-# 11. EVENT
+* Title không được rỗng.
+* Date hợp lệ.
+* Start Time không được lớn hơn End Time.
+* Reminder phải hợp lệ với Event.
+* Repeat Rule phải hợp lệ.
 
-Event đại diện cho một lịch trình hoặc sự kiện có thời gian cụ thể.
+## 7.4 Edit Event
 
-Event có thể bao gồm:
+User có thể chỉnh sửa:
 
 * Title.
 * Date.
-* Start Time.
-* End Time.
+* Time.
+* Location.
+* Category.
 * Color.
 * Note.
-* Location.
 * Reminder.
 * Repeat.
 
-Event có thể được tạo bằng:
+Sau khi lưu, dữ liệu phải được cập nhật trên:
 
-1. Nút `+`.
-2. Chọn trực tiếp một ngày trên Calendar.
+* Calendar.
+* Home Dashboard.
+* Notification.
+* Lock Screen nếu Event được hiển thị.
 
-Nếu người dùng chọn ngày trước, hệ thống phải sử dụng ngày đó làm ngày mặc định cho Event.
+## 7.5 Delete Event
+
+Khi User xóa Event:
+
+* Event bị xóa khỏi Database.
+* Event biến mất khỏi Calendar.
+* Event biến mất khỏi Home Dashboard.
+* Reminder liên quan bị hủy.
+* Lock Screen được cập nhật.
+
+## 7.6 System Calendar Integration
+
+Ứng dụng có thể tích hợp với Android System Calendar.
+
+Khi cần quyền:
+
+1. System giải thích mục đích sử dụng quyền.
+2. User cho phép hoặc từ chối.
+3. Nếu Allow:
+
+   * System đọc System Calendar Event.
+   * Event có `source = system_calendar`.
+4. Nếu Deny:
+
+   * Local Calendar vẫn hoạt động bình thường.
+
+System Calendar Event không được ghi đè hoặc làm mất Local Event.
 
 ---
 
-# 12. GOAL
+# FR-05 – GOAL MANAGEMENT
 
-Goal đại diện cho mục tiêu người dùng muốn hoàn thành trong một khoảng thời gian.
+## 8.1 Description
 
-Hệ thống hỗ trợ:
+Goal cho phép User thiết lập và theo dõi mục tiêu theo tuần hoặc tháng.
 
-```text
-Weekly Goal
-Monthly Goal
-```
+Goal có hai loại:
 
-Weekly Goal thuộc phạm vi một tuần.
+* **Weekly Goal**
+* **Monthly Goal**
 
-Monthly Goal thuộc phạm vi một tháng.
+Hai loại được quản lý riêng về mặt logic.
 
-Goal có thể theo dõi:
+## 8.2 Goal Fields
 
-* Completion.
+* Goal ID.
+* Goal Type.
+* Title.
+* Description.
+* Start Date.
+* End Date.
 * Progress.
+* Completed.
+* Created At.
+* Updated At.
 
-Ví dụ:
+## 8.3 Create Goal
 
-```text
-GOALS — OCTOBER
+1. User chọn Create Goal.
+2. User chọn Weekly hoặc Monthly.
+3. User nhập Title.
+4. User nhập Description nếu cần.
+5. User chọn Start Date.
+6. User chọn End Date.
+7. System validate.
+8. System lưu Goal.
+9. Goal xuất hiện trên Calendar/Home.
 
-○ Finish Flutter Project
-○ Read 2 Books
-○ Exercise 12 Times
-```
+## 8.4 Goal Management
 
----
+User có thể:
 
-# 13. HABIT
+* Create.
+* Edit.
+* Update Progress.
+* Mark Completed.
+* Delete.
 
-Habit đại diện cho một hành vi người dùng muốn duy trì theo quy tắc lặp.
+## 8.5 Business Rules
 
-Habit được thiết kế theo mô hình:
-
-```text
-Habit Rule
-     │
-     ├── Occurrence
-     ├── Occurrence
-     ├── Occurrence
-     └── Occurrence
-```
-
-Habit Rule định nghĩa:
-
-* Tên Habit.
-* Ngày bắt đầu.
-* Ngày kết thúc.
-* Quy tắc lặp.
-
-Habit Occurrence đại diện cho một lần thực hiện cụ thể.
-
-Ví dụ:
-
-```text
-Habit:
-Drink Water
-
-Rule:
-Every Weekday
-
-Occurrences:
-Monday ✓
-Tuesday ✓
-Wednesday ✓
-Thursday ○
-Friday ✓
-```
-
-Việc chỉnh sửa một Occurrence không làm thay đổi toàn bộ Habit Rule.
+* Start Date ≤ End Date.
+* Weekly Goal và Monthly Goal không được trộn dữ liệu.
+* Progress không được âm.
+* Goal Completed phải được phản ánh trên Dashboard.
 
 ---
 
-# 14. TO-DO
+# FR-06 – HABIT MANAGEMENT
 
-To-do là module quản lý công việc.
+## 9.1 Description
 
-Một Task có thể tồn tại độc lập hoặc chứa nhiều Subtask.
+Habit cho phép User tạo hành động lặp lại và theo dõi việc thực hiện hành động đó.
 
-Mô hình:
+Habit được chia thành:
 
-```text
-Task
- │
- ├── Subtask
- ├── Subtask
- └── Subtask
-```
+**Habit Rule**
 
-Task có thể có:
+và
+
+**Habit Occurrence**
+
+## 9.2 Habit Rule
+
+Habit Rule xác định:
+
+* Habit Name.
+* Start Date.
+* End Date.
+* Repeat Rule.
+
+## 9.3 Repeat Rule
+
+System phải hỗ trợ:
+
+* Every Day.
+* Every Week.
+* Specific Days.
+* Custom Repeat.
+
+## 9.4 Habit Occurrence
+
+Mỗi lần Habit xuất hiện trên một ngày cụ thể được xem là một Habit Occurrence.
+
+Occurrence có thể có:
+
+* Occurrence ID.
+* Habit ID.
+* Date.
+* Status.
+* Override Information nếu cần.
+
+## 9.5 Main Flow
+
+1. User chọn Create Habit.
+2. User nhập Habit Name.
+3. User chọn Start Date.
+4. User chọn End Date nếu cần.
+5. User chọn Repeat Rule.
+6. System lưu Habit Rule.
+7. System tạo/xác định các Occurrences.
+8. Occurrences được hiển thị trên Calendar.
+9. User có thể đánh dấu Completed.
+
+## 9.6 Single Occurrence Management
+
+Nếu User muốn xóa hoặc chỉnh sửa **chỉ một ngày**:
+
+1. User chọn Occurrence.
+2. System hiển thị tùy chọn Edit/Delete this occurrence.
+3. User xác nhận.
+4. System chỉ thay đổi Occurrence đó.
+5. Habit Rule không bị thay đổi.
+
+Nếu User chọn Edit/Delete Habit:
+
+* System thay đổi toàn bộ Rule và các Occurrence liên quan.
+
+---
+
+# FR-07 – TO-DO LIST
+
+## 10.1 Description
+
+To-do List là khu vực quản lý các công việc cần hoàn thành.
+
+Tiêu đề màn hình:
+
+> **TO-DO LIST**
+
+Giao diện theo hướng tối giản với các dòng ngang giống danh sách ghi chú.
+
+Prototype có thể hiển thị khoảng **36 dòng** và cho phép Scroll khi danh sách dài hơn.
+
+## 10.2 Quick Add
+
+1. User mở To-do.
+2. User nhấn **+**.
+3. System thêm một Task mới.
+4. Text Input tự động được Focus.
+5. User nhập Task Title.
+6. User có thể tick Checkbox.
+7. System lưu Task.
+
+Quick Add không yêu cầu nhập toàn bộ Task Detail.
+
+## 10.3 Task Detail
+
+Sau khi Task được tạo, User có thể chọn Edit.
+
+Task Detail bao gồm:
 
 * Title.
 * Description.
@@ -516,15 +576,58 @@ Task có thể có:
 * Subtasks.
 * Tags.
 * Estimated Time.
+* Completed Status.
+* Created At.
+* Updated At.
+
+## 10.4 Task Subtasks
+
+Task có thể:
+
+* Không có Subtask.
+* Có một Subtask.
+* Có nhiều Subtask.
+
+Mỗi Subtask có:
+
+* Subtask ID.
+* Task ID.
+* Title.
+* Completed Status.
+
+Quan hệ:
+
+> Task 1 → N TaskSubtask
+
+Khi Task bị xóa, Subtasks liên quan phải được xử lý theo quy tắc Cascade Delete hoặc cơ chế tương đương.
+
+## 10.5 Task Completion
+
+Task có thể được hoàn thành từ:
+
+* To-do List.
+* Task Detail.
+* Notification.
+* Lock Screen nếu Android cho phép.
+
+Sau khi hoàn thành:
+
+* Task Status cập nhật.
+* Home Dashboard cập nhật.
+* Notification cập nhật.
+* Lock Screen cập nhật.
 
 ---
 
-# 15. NOTES
+# FR-08 – NOTES
 
-Notes là module quản lý ghi chú cá nhân.
+## 11.1 Description
 
-Note có thể bao gồm:
+Notes cho phép User tạo, chỉnh sửa, tìm kiếm, ghim và xóa ghi chú.
 
+## 11.2 Note Fields
+
+* Note ID.
 * Title.
 * Content.
 * Category.
@@ -533,662 +636,1264 @@ Note có thể bao gồm:
 * Created Date.
 * Updated Date.
 
-Hệ thống hỗ trợ:
+## 11.3 Main Flow
+
+1. User mở Notes.
+2. User chọn Create Note.
+3. User nhập Title.
+4. User nhập Content.
+5. User chọn Category/Color nếu cần.
+6. User có thể Pin.
+7. User Save.
+8. System lưu Note.
+
+## 11.4 Note Operations
+
+User có thể:
+
+* Create.
+* Read.
+* Edit.
+* Delete.
+* Search.
+* Pin.
+* Unpin.
+
+## 11.5 Quick Note
+
+Quick Note có thể được tạo từ:
+
+* App.
+* Notification.
+* Lock Screen.
+* Shortcut nếu nền tảng hỗ trợ.
+
+Quick Note phải sử dụng **cùng Note Database** với Notes thông thường.
+
+Không được tạo một nguồn dữ liệu riêng cho Quick Note.
+
+---
+
+# FR-09 – THEME MANAGEMENT
+
+## 12.1 Description
+
+Theme quản lý giao diện tổng thể của Super Calendar.
+
+Theme áp dụng cho toàn bộ ứng dụng.
+
+## 12.2 Theme Properties
+
+Theme có thể kiểm soát:
+
+* Primary Color.
+* Secondary Color.
+* Background.
+* Typography.
+* Font.
+* Border Radius.
+* Shadow.
+* Component Style.
+* Spacing.
+* Icon Style.
+* Dark Mode.
+* Layout Style.
+
+## 12.3 Default Theme
+
+Free User được sử dụng Default Theme.
+
+Default Theme phải theo định hướng:
+
+* Minimal.
+* Clean.
+* Simple.
+* Easy to read.
+* Không quá nhiều hiệu ứng.
+
+## 12.4 VIP Theme
+
+VIP có thể mở khóa:
+
+* Custom Color.
+* Custom Font.
+* Advanced Typography.
+* Advanced Layout.
+* Theme Builder.
+* Premium Components.
+
+## 12.5 Theme and Widget Template Separation
+
+Theme và Widget Template là hai đối tượng độc lập.
+
+Ví dụ:
+
+> Theme = Pastel Pink
+> Widget Template = Minimal To-do
+
+Thay đổi Widget Template không được thay đổi Theme toàn ứng dụng.
+
+---
+
+# FR-10 – WIDGET TEMPLATE
+
+## 13.1 Description
+
+Widget Template quyết định cách một nhóm dữ liệu được trình bày trên giao diện.
+
+Template không thay đổi giao diện tổng thể của ứng dụng.
+
+## 13.2 Supported Widget Types
+
+Template có thể áp dụng cho:
+
+* To-do.
+* Habit.
+* Week.
+* Month.
+* Goal.
+* Notes.
+* Các Widget khác trong tương lai.
+
+## 13.3 Template Classification
+
+Template được chia thành:
+
+* Free.
+* Premium/VIP.
+
+Prototype có thể cung cấp khoảng 3 Free Templates.
+
+## 13.4 Apply Template
+
+1. User mở Template Center.
+2. User chọn Template.
+3. System hiển thị Preview.
+4. Nếu Free:
+
+   * User chọn Apply.
+5. Nếu Premium:
+
+   * System kiểm tra quyền.
+   * Nếu User không có quyền, hiển thị VIP Prompt.
+6. Nếu User đủ quyền:
+
+   * Template được Apply.
+7. Home/Widget cập nhật giao diện.
+
+---
+
+# FR-11 – VIP MANAGEMENT
+
+## 14.1 Description
+
+VIP là hệ thống kiểm soát quyền truy cập các chức năng Premium.
+
+VIP không phải một module nghiệp vụ độc lập mà là cơ chế Access Control được các chức năng khác sử dụng.
+
+## 14.2 Free Features
+
+Free User được sử dụng:
+
+* Calendar.
+* Event.
+* Basic Goal.
+* Habit.
+* To-do.
+* Notes.
+* Default Theme.
+* Free Widget Templates.
+* Basic Notifications.
+
+## 14.3 VIP Features
+
+VIP User được mở khóa:
+
+* Premium Widget Templates.
+* Custom Colors.
+* Custom Fonts.
+* Advanced Layout.
+* Theme Builder.
+* Premium Widget Customization.
+* Premium Lock Screen Customization nếu được triển khai.
+
+## 14.4 VIP Check
+
+Khi User truy cập Premium Feature:
+
+1. System kiểm tra VIP Status.
+2. Nếu Free:
+
+   * Hiển thị Lock.
+   * Hiển thị VIP Prompt.
+3. Nếu VIP:
+
+   * Cho phép sử dụng.
+
+## 14.5 Mock Purchase
+
+Prototype có thể mô phỏng:
+
+> Free → Upgrade → Mock Payment → VIP
+
+Không triển khai:
+
+* Real Payment.
+* Banking.
+* Credit Card.
+* Payment Gateway.
+
+---
+
+# FR-12 – NOTIFICATION
+
+## 15.1 Description
+
+Notification cung cấp các lời nhắc liên quan đến Event, Task, Habit và Goal.
+
+## 15.2 Supported Reminder
+
+* Event Reminder.
+* Task Reminder.
+* Habit Reminder.
+* Goal Reminder.
+
+## 15.3 Main Flow
+
+1. User tạo Reminder.
+2. System lưu Reminder Configuration.
+3. System lập lịch Notification.
+4. Đến thời gian:
+
+   * System gửi Notification.
+5. User chọn Notification.
+6. System mở dữ liệu liên quan.
+
+## 15.4 Task Notification Actions
+
+Nếu Android hỗ trợ:
+
+* Done.
+* Snooze.
+
+Khi User chọn Done:
+
+> Notification → Task ID → Task Status = Completed
+
+Không tạo Task mới từ Notification.
+
+## 15.5 Data Consistency
+
+Nếu dữ liệu nguồn:
+
+* Deleted → Reminder bị hủy.
+* Rescheduled → Reminder được cập nhật.
+* Completed → Reminder được xử lý tương ứng.
+
+---
+
+# FR-13 – LOCK SCREEN
+
+## 16.1 Description
+
+Lock Screen đưa thông tin quan trọng của User đến khu vực có thể xem nhanh mà không cần mở toàn bộ ứng dụng.
+
+Prototype ưu tiên Android.
+
+## 16.2 Schedule
+
+Schedule hiển thị lịch trình.
+
+Schedule phải:
+
+* Read-only.
+* Không Edit trực tiếp.
+* Không Delete trực tiếp.
+* Không Drag.
+* Không Reschedule.
+
+Khi User chọn Schedule, ứng dụng có thể được mở để thao tác chi tiết.
+
+## 16.3 To-do
+
+Lock Screen có thể hiển thị:
+
+* Task chưa hoàn thành.
+* Task quan trọng.
+* Task sắp đến hạn.
+
+Nếu Android cho phép, User có thể Complete Task trực tiếp.
+
+Dữ liệu phải được cập nhật vào Task Database.
+
+## 16.4 Quick Note
+
+User có thể tạo Quick Note từ:
+
+* Lock Screen.
+* Notification.
+* Shortcut.
+
+Quick Note phải được lưu vào Note Database.
+
+## 16.5 Security
+
+System không được lưu hoặc yêu cầu:
+
+* Device PIN.
+* Device Password.
+* Biometric credentials.
+
+Nếu cần xác thực, ứng dụng sử dụng cơ chế bảo mật của hệ điều hành.
+
+## 16.6 Native Android
+
+Các chức năng liên quan đến:
+
+* Lock Screen.
+* Notification.
+* System Calendar.
+* Shortcut/System Integration.
+
+có thể yêu cầu Android Native/Kotlin.
+
+---
+
+# FR-14 – SETTINGS
+
+## 17.1 Description
+
+Settings cho phép User quản lý cấu hình ứng dụng.
+
+Settings được chia thành các nhóm.
+
+## 17.2 Account
+
+* Account.
+* Profile.
+* VIP Status.
+
+## 17.3 Appearance
+
+* Theme.
+* Custom Color.
+* Widget Style.
+* Font.
+* Layout.
+* Dark Mode.
+
+## 17.4 Calendar
+
+* Default Calendar.
+* Week Starts On.
+* Calendar Permission.
+* Default Event Duration.
+
+## 17.5 Tasks
+
+* Default Priority.
+* Completed Task Behavior.
+* Default Reminder.
+
+## 17.6 Notifications
+
+* Enable/Disable Notifications.
+* Event Reminder.
+* Task Reminder.
+* Habit Reminder.
+* Goal Reminder.
+
+## 17.7 Language & Region
+
+* Language.
+* Date Format.
+* Time Format.
+* First Day of Week.
+
+## 17.8 Lock Screen
+
+* Enable/Disable.
+* Schedule Visibility.
+* To-do Visibility.
+* Quick Note.
+
+## 17.9 Help
+
+* User Guide.
+* FAQ.
+* About.
+
+## 17.10 Application
+
+* Version.
+* Privacy.
+* Terms.
+
+---
+
+# FR-15 – TEMPLATE MARKETPLACE
+
+## 18.1 Description
+
+Template Marketplace là khu vực cho phép User khám phá, Preview, sở hữu và sử dụng các Widget Template được cung cấp trên hệ thống.
+
+Marketplace mở rộng Template Center và cho phép hệ thống cung cấp thêm Template ngoài các Template mặc định.
+
+Marketplace tập trung vào **Widget Template**, không bán Theme toàn ứng dụng.
+
+## 18.2 Marketplace Content
+
+Marketplace có thể chứa:
+
+* Free Templates.
+* Premium Templates.
+* Official Templates.
+* User-created Templates.
+
+## 18.3 Browse Marketplace
+
+1. User mở Marketplace.
+2. System hiển thị Template.
+3. User có thể Search.
+4. User có thể Filter.
+5. User chọn Template.
+6. System mở Template Detail.
+
+## 18.4 Template Detail
+
+Template Detail phải hiển thị:
+
+* Template Name.
+* Preview.
+* Description.
+* Category.
+* Widget Type.
+* Creator/Provider.
+* Free/Premium Status.
+* Price nếu có.
+* Apply/Purchase action.
+
+## 18.5 Free Template
+
+Nếu Template Free:
+
+1. User Preview.
+2. User chọn Apply.
+3. System áp dụng Template.
+4. Không cần Purchase.
+
+## 18.6 Premium Template
+
+Nếu Template Premium:
+
+1. User mở Template.
+2. System kiểm tra VIP Status/Ownership.
+3. Nếu chưa có quyền:
+
+   * Hiển thị Premium Information.
+   * Hiển thị Purchase/Unlock.
+4. User chọn Purchase.
+5. Prototype thực hiện Mock Purchase.
+6. System tạo Purchase Record.
+7. Template được đánh dấu Owned.
+8. User có thể Apply.
+
+## 18.7 Template Ownership
+
+Ownership và Apply là hai trạng thái khác nhau.
+
+Ví dụ:
+
+User có thể:
+
+> Own 5 Templates
+> Apply 1 Template
+
+User không bị giới hạn chỉ một Template đã sở hữu.
+
+## 18.8 Search
+
+Marketplace hỗ trợ tìm kiếm theo:
+
+* Template Name.
+* Keyword.
+* Category.
+
+## 18.9 Filter
+
+Marketplace có thể hỗ trợ:
+
+* Free.
+* Premium.
+* Category.
+* New.
+* Popular.
+
+Các tiêu chí New/Popular chỉ cần triển khai khi Prototype có dữ liệu phù hợp.
+
+---
+
+# FR-16 – TEMPLATE CREATOR & PUBLISH
+
+## 19.1 Description
+
+VIP User có thể tạo Widget Template của riêng mình và publish lên Marketplace.
+
+Trong Prototype, đây là chức năng mô phỏng hệ sinh thái Template.
+
+## 19.2 Create Template
+
+1. VIP User mở Template Creator.
+2. System kiểm tra VIP Status.
+3. User chọn Widget Type.
+4. User thiết kế Layout.
+5. User cấu hình thành phần.
+6. User Preview.
+7. User Save.
+8. System lưu Template ở trạng thái Draft.
+
+## 19.3 Template Draft
+
+Draft chưa được hiển thị công khai trên Marketplace.
+
+User có thể:
+
+* Edit.
+* Preview.
+* Delete.
+* Publish.
+
+## 19.4 Publish Template
+
+1. User chọn Publish.
+2. System kiểm tra Template.
+3. System yêu cầu:
+
+   * Name.
+   * Description.
+   * Category.
+   * Preview.
+   * Template Type.
+4. User xác nhận.
+5. System chuyển Status:
+
+> Draft → Published
+
+6. Template có thể xuất hiện trên Marketplace.
+
+## 19.5 Template Status
+
+Template có thể có:
+
+* Draft.
+* Published.
+* Unpublished.
+* Owned.
+* Applied.
+
+## 19.6 Prototype Limitation
+
+Prototype không yêu cầu:
+
+* Creator Verification.
+* Content Moderation phức tạp.
+* Real Marketplace Backend.
+* Revenue Sharing.
+* Creator Payout.
+* Real Payment.
+
+Các chức năng trên thuộc Production/Future Development.
+
+---
+
+# 5. ENTITY AND DATA REQUIREMENTS
+
+## 5.1 User
+
+| Field       | Description    |
+| ----------- | -------------- |
+| UserID      | Định danh User |
+| DisplayName | Tên hiển thị   |
+| Email       | Email nếu có   |
+| Avatar      | Avatar nếu có  |
+| VIPStatus   | Trạng thái VIP |
+| CreatedAt   | Ngày tạo       |
+| UpdatedAt   | Ngày cập nhật  |
+
+---
+
+## 5.2 Event
+
+| Field         | Description           |
+| ------------- | --------------------- |
+| EventID       | ID                    |
+| Title         | Tên Event             |
+| Description   | Mô tả                 |
+| StartDateTime | Bắt đầu               |
+| EndDateTime   | Kết thúc              |
+| Location      | Địa điểm              |
+| Category      | Danh mục              |
+| Color         | Màu                   |
+| Reminder      | Nhắc nhở              |
+| Repeat        | Lặp                   |
+| Source        | Local/System Calendar |
+| CreatedAt     | Ngày tạo              |
+| UpdatedAt     | Ngày cập nhật         |
+
+---
+
+## 5.3 Task
+
+| Field         | Description       |
+| ------------- | ----------------- |
+| TaskID        | ID                |
+| Title         | Tên Task          |
+| Description   | Mô tả             |
+| DueDate       | Hạn ngày          |
+| DueTime       | Hạn giờ           |
+| Priority      | Mức độ ưu tiên    |
+| Reminder      | Nhắc nhở          |
+| Repeat        | Lặp               |
+| Category      | Danh mục          |
+| Color         | Màu               |
+| Note          | Ghi chú           |
+| Attachment    | File đính kèm     |
+| Tags          | Tag               |
+| EstimatedTime | Thời gian dự kiến |
+| Completed     | Trạng thái        |
+| CreatedAt     | Ngày tạo          |
+| UpdatedAt     | Ngày cập nhật     |
+
+---
+
+## 5.4 TaskSubtask
+
+| Field     | Description |
+| --------- | ----------- |
+| SubtaskID | ID          |
+| TaskID    | Task cha    |
+| Title     | Nội dung    |
+| Completed | Trạng thái  |
+
+Quan hệ:
+
+> Task 1 — N TaskSubtask
+
+---
+
+## 5.5 Goal
+
+| Field       | Description    |
+| ----------- | -------------- |
+| GoalID      | ID             |
+| Type        | Weekly/Monthly |
+| Title       | Tên            |
+| Description | Mô tả          |
+| StartDate   | Bắt đầu        |
+| EndDate     | Kết thúc       |
+| Progress    | Tiến độ        |
+| Completed   | Hoàn thành     |
+| CreatedAt   | Ngày tạo       |
+| UpdatedAt   | Ngày cập nhật  |
+
+---
+
+## 5.6 Habit
+
+| Field      | Description   |
+| ---------- | ------------- |
+| HabitID    | ID            |
+| Title      | Tên           |
+| StartDate  | Ngày bắt đầu  |
+| EndDate    | Ngày kết thúc |
+| RepeatRule | Quy tắc lặp   |
+| CreatedAt  | Ngày tạo      |
+| UpdatedAt  | Ngày cập nhật |
+
+---
+
+## 5.7 HabitOccurrence
+
+| Field        | Description    |
+| ------------ | -------------- |
+| OccurrenceID | ID             |
+| HabitID      | Habit Rule     |
+| Date         | Ngày           |
+| Status       | Trạng thái     |
+| OverrideData | Thay đổi riêng |
+
+Quan hệ:
+
+> Habit 1 — N HabitOccurrence
+
+---
+
+## 5.8 Note
+
+| Field     | Description   |
+| --------- | ------------- |
+| NoteID    | ID            |
+| Title     | Tiêu đề       |
+| Content   | Nội dung      |
+| Category  | Danh mục      |
+| Color     | Màu           |
+| IsPinned  | Ghim          |
+| CreatedAt | Ngày tạo      |
+| UpdatedAt | Ngày cập nhật |
+
+---
+
+## 5.9 Theme
+
+| Field          | Description |
+| -------------- | ----------- |
+| ThemeID        | ID          |
+| Name           | Tên         |
+| Colors         | Màu         |
+| Typography     | Font/Text   |
+| Background     | Background  |
+| Radius         | Bo góc      |
+| Shadow         | Shadow      |
+| ComponentStyle | Style       |
+| IsVIP          | Premium     |
+
+---
+
+## 5.10 WidgetTemplate
+
+| Field         | Description         |
+| ------------- | ------------------- |
+| TemplateID    | ID                  |
+| Name          | Tên                 |
+| Description   | Mô tả               |
+| WidgetType    | Loại Widget         |
+| Category      | Danh mục            |
+| Configuration | Cấu hình Layout     |
+| Preview       | Preview             |
+| CreatorID     | Người tạo           |
+| Price         | Giá                 |
+| IsPremium     | Premium             |
+| Status        | Draft/Published/... |
+| CreatedAt     | Ngày tạo            |
+| UpdatedAt     | Ngày cập nhật       |
+
+---
+
+## 5.11 Purchase
+
+| Field        | Description |
+| ------------ | ----------- |
+| PurchaseID   | ID          |
+| UserID       | Người mua   |
+| TemplateID   | Template    |
+| PurchaseDate | Ngày mua    |
+| Price        | Giá         |
+| Status       | Trạng thái  |
+
+Trong Prototype, Purchase chỉ phục vụ Mock Purchase.
+
+---
+
+# 6. FUNCTIONAL RELATIONSHIP
+
+Các chức năng phải liên kết với nhau theo mô hình:
+
+```text
+                    SUPER CALENDAR
+                          │
+        ┌─────────────────┼─────────────────┐
+        │                 │                 │
+      PLAN               DO            PERSONALIZE
+        │                 │                 │
+    Calendar           To-do          Theme / Template
+        │                 │                 │
+ ┌──────┼──────┐          │          ┌──────┴──────┐
+ │      │      │          │          │             │
+Event  Goal   Habit      Task      Template      VIP
+ │             │          │          │             │
+ │             │       Subtask       │         Access Control
+ │             │                     │
+ └─────────────┴──────────┬──────────┘
+                          │
+                    Home Dashboard
+                          │
+              ┌───────────┴───────────┐
+              │                       │
+         Notification             Lock Screen
+              │                       │
+              └───────────┬───────────┘
+                          │
+                         Notes
+```
+
+Marketplace nằm trong hệ sinh thái Template:
+
+```text
+Home
+ │
+ └── Template Center
+       │
+       ├── My Templates
+       │
+       ├── Free Templates
+       │
+       └── Marketplace
+              │
+              ├── Browse
+              ├── Search
+              ├── Preview
+              ├── Purchase
+              ├── Apply
+              │
+              └── Create/Publish
+                    │
+                  VIP
+```
+
+---
+
+# 7. BUSINESS RULES
+
+## BR-01 – Event and Task
+
+Event và Task là hai loại dữ liệu khác nhau.
+
+* Event = hoạt động có lịch.
+* Task = công việc cần hoàn thành.
+
+Không được sử dụng Task thay thế cho Event hoặc ngược lại.
+
+## BR-02 – Habit
+
+Habit Rule và Habit Occurrence phải được quản lý riêng.
+
+Chỉnh sửa một occurrence không được thay đổi toàn bộ Habit Rule.
+
+## BR-03 – Goal
+
+Weekly Goal và Monthly Goal phải được phân biệt bằng Goal Type.
+
+## BR-04 – Theme
+
+Theme điều khiển giao diện tổng thể.
+
+## BR-05 – Widget Template
+
+Widget Template chỉ điều khiển layout/presentation của một Widget.
+
+## BR-06 – VIP
+
+VIP quyết định quyền truy cập chức năng Premium.
+
+## BR-07 – Marketplace
+
+Marketplace quản lý việc khám phá và sở hữu Template.
+
+## BR-08 – Ownership
+
+Sở hữu Template không đồng nghĩa với đang Apply Template.
+
+## BR-09 – Notification
+
+Notification chỉ tham chiếu dữ liệu nguồn và không tạo dữ liệu nghiệp vụ trùng lặp.
+
+## BR-10 – Lock Screen
+
+Lock Screen không được trở thành một nguồn dữ liệu độc lập.
+
+## BR-11 – Quick Note
+
+Quick Note sử dụng cùng Note Database với Notes.
+
+## BR-12 – Data Persistence
+
+Dữ liệu sau khi Save phải được lưu và khôi phục sau khi ứng dụng được mở lại.
+
+---
+
+# 8. NON-FUNCTIONAL REQUIREMENTS
+
+## 8.1 Usability
+
+Giao diện phải:
+
+* Đơn giản.
+* Tối giản.
+* Dễ hiểu.
+* Dễ thao tác.
+* Không có quá nhiều menu.
+* Không yêu cầu người dùng nhập quá nhiều thông tin khi thực hiện thao tác nhanh.
+
+## 8.2 Performance
+
+Các thao tác cơ bản phải phản hồi nhanh:
+
+* Create.
+* Edit.
+* Delete.
+* Complete.
+* Search.
+* Apply Template.
+
+## 8.3 Reliability
+
+System phải hạn chế mất dữ liệu khi:
+
+* Đóng ứng dụng.
+* Chuyển màn hình.
+* Khởi động lại ứng dụng.
+
+## 8.4 Maintainability
+
+Code phải được tổ chức để có thể mở rộng:
+
+* Backend.
+* Cloud Sync.
+* iOS.
+* Real Marketplace.
+* Real Payment.
+
+trong tương lai.
+
+---
+
+# 9. PROTOTYPE SCOPE
+
+Prototype phải ưu tiên chứng minh các chức năng cốt lõi:
+
+### Core
+
+* Home.
+* Calendar.
+* Week/Month.
+* Event CRUD.
+* Goal.
+* Habit.
+* To-do.
+* Task CRUD.
+* Task Completion.
+* Subtask.
+* Notes CRUD.
+
+### Personalization
+
+* Default Theme.
+* Theme Change.
+* Widget Template.
+* Template Center.
+* Free Template.
+* VIP Template Lock.
+
+### Monetization
+
+* VIP Status.
+* Premium Feature Gating.
+* Mock Purchase.
+
+### Marketplace
+
+* Marketplace.
+* Template Detail.
+* Preview.
+* Search/Filter cơ bản.
+* Mock Purchase.
+* Template Ownership.
+* Template Apply.
+* Template Creator.
+* Draft.
+* Publish.
+
+### System Integration
+
+* Android Calendar Permission.
+* Notification.
+* Lock Screen ở mức khả năng của Android Prototype.
+* Quick Note.
+
+---
+
+# 10. OUT OF SCOPE
+
+Các chức năng sau không thuộc Prototype:
+
+* Real Backend.
+* Real Account Authentication.
+* Cloud Sync.
+* Real Payment Gateway.
+* Credit Card Processing.
+* Banking Integration.
+* Real Template Marketplace Backend.
+* Creator Revenue Sharing.
+* Creator Payout.
+* Complex Moderation.
+* Review/Rating System.
+* Social Network.
+* Chat.
+* Team Collaboration.
+* Public Social Sharing.
+* AI Assistant.
+* Advanced Third-party Calendar Synchronization.
+
+Các chức năng này có thể được phát triển trong phiên bản Production.
+
+---
+
+# 11. ACCEPTANCE CRITERIA
+
+## 11.1 Navigation
+
+* Có đúng 5 tab chính.
+* Home là màn hình mặc định.
+* User chuyển đổi giữa các tab thành công.
+
+## 11.2 Home
+
+* Hiển thị Dashboard.
+* Hiển thị dữ liệu hiện tại.
+* Có Template Center.
+* Không tạo dữ liệu trùng lặp.
+
+## 11.3 Calendar
+
+* Có Week View.
+* Có Month View.
+* Có nút +.
+* Có thể chọn trực tiếp ngày.
+* Có Event.
+* Có Goal.
+* Có Habit.
+
+## 11.4 Event
+
+* Create.
+* Read.
+* Edit.
+* Delete.
+* Reminder.
+* Repeat.
+* System Calendar Permission.
+
+## 11.5 Goal
+
+* Weekly Goal.
+* Monthly Goal.
+* Progress.
+* Complete.
+* Edit/Delete.
+
+## 11.6 Habit
+
+* Create Habit.
+* Repeat.
+* Occurrence.
+* Complete.
+* Edit/Delete individual occurrence.
+* Edit/Delete entire Habit Rule.
+
+## 11.7 To-do
+
+* Quick Add.
+* Auto Focus.
+* Checkbox.
+* Edit.
+* Task Detail.
+* Subtask.
+* Reminder.
+* Complete/Delete.
+
+## 11.8 Notes
 
 * Create.
 * Edit.
 * Delete.
 * Search.
 * Pin.
+* Quick Note.
+
+## 11.9 Theme
+
+* Default Theme.
+* VIP Theme features.
+* Theme applies consistently.
+
+## 11.10 Template
+
+* Free Template.
+* Premium Template.
+* Preview.
+* Apply.
+* Lock.
+
+## 11.11 VIP
+
+* Free/VIP Status.
+* Premium Access Control.
+* Mock Purchase.
+
+## 11.12 Notification
+
+* Event Reminder.
+* Task Reminder.
+* Habit Reminder.
+* Goal Reminder.
+* Task Done/Snooze where supported.
+
+## 11.13 Lock Screen
+
+* Schedule display.
+* Read-only Schedule.
+* To-do display.
+* Task completion where supported.
+* Quick Note where supported.
+
+## 11.14 Marketplace
+
+* Browse.
+* Search.
+* Filter.
+* Template Detail.
+* Preview.
+* Free Template Apply.
+* Premium Template Purchase.
+* Ownership.
+* Apply.
+
+## 11.15 Template Creator
+
+* VIP check.
+* Create Template.
+* Edit Template.
+* Preview.
+* Save Draft.
+* Publish.
 
 ---
 
-# 16. QUICK NOTE
+# 12. REQUIREMENT TRACEABILITY
 
-Quick Note là phương thức tạo Note nhanh.
-
-Quick Note có thể được truy cập từ:
-
-* Notification.
-* Lock Screen.
-* Shortcut nếu được hỗ trợ.
-
-Quick Note sử dụng **cùng Note data source** với Notes module.
+Functional Requirements phải được sử dụng làm cơ sở cho toàn bộ quá trình phát triển:
 
 ```text
-Quick Note
-    │
-    ▼
-Note
-    │
-    ▼
-Note Data Source
-```
-
-Không tạo database riêng cho Quick Note.
-
----
-
-# 17. THEME
-
-Theme quy định giao diện tổng thể của ứng dụng.
-
-Theme có thể bao gồm:
-
-* Color.
-* Typography.
-* Background.
-* Border Radius.
-* Shadow.
-* Component Style.
-
-Theme là cấp độ tùy chỉnh **toàn ứng dụng**.
-
----
-
-# 18. WIDGET TEMPLATE
-
-Widget Template quy định cách một loại nội dung được trình bày.
-
-Ví dụ:
-
-```text
-To-do Minimal
-│
-├── Layout
-├── Checkbox Style
-├── Typography
-├── Spacing
-└── Preview
-```
-
-Widget Template và Theme là hai đối tượng độc lập.
-
-Ví dụ:
-
-```text
-Theme
-Pastel Pink
-
-+
-
-Widget Template
-To-do Minimal
-```
-
-có thể được sử dụng cùng nhau.
-
----
-
-# 19. VIP
-
-VIP là cơ chế kiểm soát quyền truy cập tính năng Premium.
-
-VIP không phải một module nghiệp vụ độc lập như Calendar hay To-do.
-
-Nó hoạt động như một **Access Control Layer**.
-
-```text
-User
- │
- ▼
-VIP Status
- │
- ▼
-Access Control
- │
- ├── Free Feature
- └── Premium Feature
-```
-
----
-
-# 20. NOTIFICATION
-
-Notification được sử dụng để nhắc người dùng về:
-
-* Event.
-* Task.
-* Habit.
-* Goal.
-
-Notification lấy thông tin từ dữ liệu chính.
-
-Ví dụ:
-
-```text
-Event
- │
- ▼
-Reminder Rule
- │
- ▼
-Notification
-```
-
-Notification không tạo một Event hoặc Task mới.
-
----
-
-# 21. LOCK SCREEN
-
-Lock Screen cung cấp khả năng truy cập nhanh thông tin quan trọng.
-
-Gồm ba khu vực:
-
-```text
-LOCK SCREEN
-│
-├── Schedule
-├── To-do
-└── Quick Note
-```
-
-### Schedule
-
-* Read-only.
-* Không Edit.
-* Không Delete.
-* Tap → mở ứng dụng.
-
-### To-do
-
-* Xem Task.
-* Có thể Complete Task nếu hệ điều hành cho phép.
-
-### Quick Note
-
-* Nhập nội dung nhanh.
-* Lưu trực tiếp vào Note data source.
-
----
-
-# 22. SETTINGS
-
-Settings là nơi cấu hình hệ thống.
-
-Các nhóm:
-
-```text
-SETTINGS
-│
-├── Account
-├── Appearance
-├── Calendar
-├── Tasks
-├── Notifications
-├── Language & Region
-├── Lock Screen
-├── Help
-└── App
-```
-
-Settings không quản lý dữ liệu nghiệp vụ chính mà chủ yếu quản lý **system configuration và user preferences**.
-
----
-
-# 23. DATA DOMAIN
-
-Các domain dữ liệu chính:
-
-```text
-User
-│
-├── Event
-├── Task
-│    └── TaskSubtask
-├── Goal
-├── Habit
-│    └── HabitOccurrence
-├── Note
-├── Theme
-├── WidgetTemplate
-└── Purchase
-```
-
----
-
-# 24. DATA OWNERSHIP
-
-Mỗi loại dữ liệu phải có một nguồn dữ liệu chính.
-
-| Data             | Owner           |
-| ---------------- | --------------- |
-| Event            | Event           |
-| Task             | Task            |
-| Goal             | Goal            |
-| Habit            | Habit           |
-| Habit Occurrence | Habit           |
-| Note             | Note            |
-| Theme            | Theme           |
-| Template         | Widget Template |
-| VIP              | User / Purchase |
-
-Các module khác chỉ được **consume/read/update thông qua domain tương ứng**.
-
-Ví dụ:
-
-```text
-Event
- ├── Calendar
- ├── Home
- ├── Notification
- └── Lock Screen
-```
-
-Không tạo:
-
-```text
-CalendarEvent
-DashboardEvent
-LockScreenEvent
-```
-
-cho cùng một dữ liệu.
-
----
-
-# 25. SYSTEM DATA FLOW
-
-## Event
-
-```text
-User
- ↓
-Event
- ↓
-Event Data
- ├── Calendar
- ├── Home
- ├── Notification
- └── Lock Screen
-```
-
-## Task
-
-```text
-User
- ↓
-Task
- ↓
-Task Data
- ├── To-do
- ├── Home
- ├── Notification
- └── Lock Screen
-```
-
-## Habit
-
-```text
-User
- ↓
-Habit Rule
- ↓
-Habit Occurrence
- ├── Calendar
- └── Home
-```
-
-## Note
-
-```text
-User
- ├── Notes
- └── Quick Note
+SYSTEM SPECIFICATION
         ↓
-      Note Data
-```
-
----
-
-# 26. SYSTEM ARCHITECTURE
-
-Hệ thống được định hướng theo kiến trúc phân tầng:
-
-```text
-┌─────────────────────────────┐
-│      Presentation Layer      │
-│ Flutter Screens / Widgets    │
-└──────────────┬──────────────┘
-               │
-┌──────────────▼──────────────┐
-│       Business Layer         │
-│ Business Rules / Services    │
-└──────────────┬──────────────┘
-               │
-┌──────────────▼──────────────┐
-│          Data Layer          │
-│ Repository / Database / API  │
-└─────────────────────────────┘
-```
-
-Chi tiết implementation có thể được quyết định trong giai đoạn System Design.
-
----
-
-# 27. GENERAL UI/UX PRINCIPLES
-
-## 27.1. Consistency
-
-Các màn hình phải thống nhất về:
-
-* Typography.
-* Color.
-* Spacing.
-* Icon.
-* Button.
-* Input.
-* Navigation.
-
-## 27.2. Minimal Interaction
-
-Các thao tác thường xuyên phải được thực hiện với số bước tối thiểu.
-
-## 27.3. Visibility
-
-Các chức năng chính phải dễ tìm thấy.
-
-## 27.4. Feedback
-
-Sau các thao tác quan trọng, hệ thống phải cung cấp feedback phù hợp.
-
-Ví dụ:
-
-* Save successful.
-* Task completed.
-* Event created.
-* Note deleted.
-
----
-
-# 28. GENERAL BUSINESS RULES
-
-### BR-01
-
-Một Event phải có thời gian bắt đầu và kết thúc hợp lệ.
-
-### BR-02
-
-Một Goal phải thuộc một loại:
-
-* Weekly.
-* Monthly.
-
-### BR-03
-
-Một Habit gồm một Rule và nhiều Occurrences.
-
-### BR-04
-
-Xóa Habit Occurrence không được xóa Habit Rule.
-
-### BR-05
-
-Task có thể có nhiều Subtasks.
-
-### BR-06
-
-Xóa Task phải xử lý các Subtask liên quan.
-
-### BR-07
-
-VIP Feature chỉ được truy cập bởi User có quyền VIP.
-
-### BR-08
-
-VIP Template phải được đánh dấu rõ ràng là Premium.
-
-### BR-09
-
-Quick Note phải sử dụng cùng nguồn dữ liệu với Note.
-
-### BR-10
-
-Dashboard, Notification và Lock Screen không được tạo bản sao độc lập của dữ liệu nghiệp vụ.
-
----
-
-# 29. NON-FUNCTIONAL REQUIREMENTS
-
-## Performance
-
-Ứng dụng phải có khả năng phản hồi nhanh đối với các thao tác thông thường.
-
-## Usability
-
-Người dùng mới có thể hiểu được navigation chính mà không cần hướng dẫn phức tạp.
-
-## Reliability
-
-Dữ liệu phải được lưu và truy xuất nhất quán.
-
-## Maintainability
-
-Các module phải được thiết kế độc lập để dễ bảo trì và mở rộng.
-
-## Scalability
-
-Kiến trúc phải cho phép bổ sung các chức năng trong tương lai.
-
-## Security
-
-Dữ liệu người dùng và quyền VIP phải được bảo vệ khỏi truy cập trái phép.
-
----
-
-# 30. SYSTEM CONSTRAINTS
-
-Hệ thống được phát triển dưới dạng mobile application bằng Flutter.
-
-Các giới hạn phụ thuộc vào:
-
-* Android/iOS API.
-* Notification API.
-* Lock Screen capabilities.
-* Device permissions.
-* Local database.
-* Network availability nếu sử dụng backend.
-
-Một số tính năng như Lock Screen có thể cần implementation khác nhau giữa Android và iOS.
-
----
-
-# 31. TECHNOLOGY DIRECTION
-
-Công nghệ dự kiến:
-
-```text
-Frontend
-    ↓
-Flutter / Dart
-
-State Management
-    ↓
-To be selected during System Design
-
-Local Storage
-    ↓
-To be selected during System Design
-
-Backend / Cloud
-    ↓
-Optional / Future Scope
-```
-
-Việc lựa chọn package, database và state management cụ thể không được cố định trong System Specification.
-
-Các quyết định này thuộc tài liệu **System Design / Technical Design**.
-
----
-
-# 32. SYSTEM BOUNDARY
-
-Hệ thống Super Calendar bao gồm:
-
-```text
-┌──────────────────────────────────────┐
-│           SUPER CALENDAR             │
-│                                      │
-│ Home                                 │
-│ Calendar ── Event                    │
-│           ├─ Goal                    │
-│           └─ Habit                   │
-│                                      │
-│ To-do ──── Task ── Subtask           │
-│                                      │
-│ Notes ──── Note / Quick Note         │
-│                                      │
-│ Settings                             │
-│ Theme                                │
-│ Template                             │
-│ VIP                                  │
-│ Notification                         │
-│ Lock Screen                          │
-└──────────────────────────────────────┘
-```
-
-Các hệ thống bên ngoài có thể tương tác:
-
-```text
-Operating System
-        │
-        ├── Notification
-        ├── Lock Screen
-        └── Permissions
-```
-
----
-
-# 33. REQUIREMENT DOCUMENT STRUCTURE
-
-Sau khi System Specification này được phê duyệt, các chức năng sẽ được đặc tả chi tiết trong **Functional Specification**.
-
-Cấu trúc tài liệu tiếp theo:
-
-```text
-FUNCTIONAL SPECIFICATION
-
-FR-01 Account Management
-FR-02 Home
-FR-03 Calendar
-FR-04 Event
-FR-05 Goal
-FR-06 Habit
-FR-07 To-do
-FR-08 Notes
-FR-09 Theme
-FR-10 Widget Template
-FR-11 VIP
-FR-12 Notification
-FR-13 Lock Screen
-FR-14 Settings
-```
-
-Mỗi FR sẽ được mô tả theo một format thống nhất:
-
-```text
-FR-ID
-Function Name
-
-1. Description
-2. Actor
-3. Preconditions
-4. Trigger
-5. Main Flow
-6. Alternative Flow
-7. Exception Flow
-8. Input
-9. Output
-10. Business Rules
-11. Data Requirements
-12. Acceptance Criteria
-```
-
----
-
-# 34. DEVELOPMENT TRACEABILITY
-
-Sau khi hoàn thành Functional Specification, mỗi requirement sẽ được liên kết theo chuỗi:
-
-```text
-System Specification
+FUNCTIONAL REQUIREMENTS
         ↓
-Functional Requirement
+USE CASE
         ↓
-Use Case
+UI/UX DESIGN
         ↓
-UI Design
+DATABASE DESIGN
         ↓
-Database / Class Design
+CLASS / ARCHITECTURE DESIGN
         ↓
-Implementation
+FLUTTER IMPLEMENTATION
         ↓
-Test Case
+ANDROID NATIVE INTEGRATION
         ↓
-Acceptance
+TEST CASE
+        ↓
+ACCEPTANCE TEST
 ```
 
-Ví dụ:
+Mỗi chức năng được triển khai phải có FR tương ứng.
 
-```text
-FR-04 Create Event
-       ↓
-UC-04 Create Event
-       ↓
-Create Event Screen
-       ↓
-Event Entity
-       ↓
-Flutter Implementation
-       ↓
-TC-04-01
-       ↓
-Accepted
-```
+Mỗi FR phải có thể truy ngược về System Specification.
+
+Mỗi Test Case phải xác định được FR mà Test Case đó kiểm tra.
 
 ---
 
-# 35. FUTURE SCOPE
+# 13. FUNCTIONAL REQUIREMENTS SUMMARY
 
-Các chức năng có thể được phát triển sau phiên bản đầu:
-
-* Cloud Synchronization.
-* Google Calendar Integration.
-* Multi-device Synchronization.
-* Productivity Statistics.
-* Habit Streak.
-* Goal Analytics.
-* Pomodoro.
-* AI Planning Assistant.
-* Smart Schedule.
-* Template Marketplace.
-* User-generated Templates.
-* Social / Collaboration Features.
-
-Các chức năng này **không thuộc phạm vi bắt buộc của phiên bản hiện tại**.
+| ID    | Functional Requirement     | Main Responsibility           |
+| ----- | -------------------------- | ----------------------------- |
+| FR-01 | Account Management         | Quản lý tài khoản             |
+| FR-02 | Home                       | Dashboard và Template Center  |
+| FR-03 | Calendar                   | Week/Month và điều hướng lịch |
+| FR-04 | Event Management           | Quản lý lịch trình            |
+| FR-05 | Goal Management            | Weekly/Monthly Goal           |
+| FR-06 | Habit Management           | Habit Rule/Occurrence         |
+| FR-07 | To-do List                 | Task/Subtask                  |
+| FR-08 | Notes                      | Quản lý ghi chú               |
+| FR-09 | Theme Management           | Giao diện tổng thể            |
+| FR-10 | Widget Template            | Layout Widget                 |
+| FR-11 | VIP Management             | Premium Access Control        |
+| FR-12 | Notification               | Reminder                      |
+| FR-13 | Lock Screen                | Schedule/To-do/Quick Note     |
+| FR-14 | Settings                   | Cấu hình hệ thống             |
+| FR-15 | Template Marketplace       | Khám phá/sở hữu Template      |
+| FR-16 | Template Creator & Publish | Tạo và Publish Template       |
 
 ---
 
-# 36. SUMMARY
+# 14. FINAL SYSTEM FUNCTIONAL STRUCTURE
 
-Super Calendar là hệ thống quản lý năng suất cá nhân tập trung vào:
+Super Calendar được tổ chức thành các nhóm chức năng:
 
-> **Calendar + Task + Goal + Habit + Note**
+### CORE PRODUCT
 
-với các hệ thống hỗ trợ:
+**Home → Calendar → To-do → Notes → Settings**
 
-> **Dashboard + Template + Theme + VIP + Notification + Lock Screen**
+### CALENDAR MANAGEMENT
 
-Hệ thống được xây dựng theo các nguyên tắc:
+**Event → Goal → Habit**
 
-1. **Modularization** – chia hệ thống thành các module độc lập.
-2. **Separation of Concerns** – tách UI, business logic và data.
-3. **Single Source of Truth** – mỗi loại dữ liệu có một nguồn chính.
-4. **Consistency** – thống nhất giao diện và quy tắc.
-5. **Traceability** – requirement có thể truy ngược đến implementation và test.
-6. **Scalability** – có khả năng mở rộng trong tương lai.
+### PRODUCTIVITY
 
-Đây là **System Specification cấp tổng thể**.
+**Task → Subtask → Reminder**
 
-Các chi tiết về từng chức năng sẽ được định nghĩa ở tài liệu **Functional Specification**, bắt đầu từ `FR-01`.
+### PERSONALIZATION
+
+**Theme → Widget Template**
+
+### PREMIUM
+
+**VIP → Premium Feature Access**
+
+### TEMPLATE ECOSYSTEM
+
+**Template Center → Marketplace → Template Detail → Purchase → Ownership → Apply**
+
+**VIP User → Template Creator → Draft → Publish → Marketplace**
+
+### SYSTEM INTEGRATION
+
+**Notification → Event/Task/Habit/Goal**
+
+**Lock Screen → Schedule/Task/Quick Note**
+
+**System Calendar → Event**
+
+---
+
+# 15. CONCLUSION
+
+Functional Requirements của Super Calendar được xây dựng theo hướng một ứng dụng quản lý năng suất cá nhân có cấu trúc đơn giản ở giao diện nhưng có khả năng mở rộng về chức năng.
+
+Hệ thống tập trung vào:
+
+> **PLAN → DO → PERSONALIZE → SEE IT FIRST**
+
+Trong đó:
+
+* Calendar quản lý lịch trình.
+* Event quản lý hoạt động theo thời gian.
+* Goal quản lý mục tiêu.
+* Habit quản lý hành vi lặp lại.
+* To-do quản lý công việc.
+* Notes quản lý ghi chú.
+* Theme cá nhân hóa giao diện.
+* Widget Template cá nhân hóa cách hiển thị.
+* VIP kiểm soát chức năng Premium.
+* Marketplace mở rộng hệ sinh thái Template.
+* Notification nhắc nhở người dùng.
+* Lock Screen đưa thông tin quan trọng đến vị trí dễ nhìn thấy.
+* Settings quản lý cấu hình ứng dụng.
+
+Prototype ưu tiên Local Database và Flutter, đồng thời sử dụng Android Native khi cần tích hợp với System Calendar, Notification và Lock Screen.
+
+Cấu trúc FR này là cơ sở để chuyển sang các tài liệu tiếp theo gồm:
+
+**Use Case Specification → UI/UX Specification → Database Specification → Class Diagram → Architecture → Implementation → Test Case.**
+
+**END OF FUNCTIONAL REQUIREMENTS SPECIFICATION – SUPER CALENDAR v1.0**
