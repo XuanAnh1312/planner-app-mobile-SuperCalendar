@@ -1,1575 +1,431 @@
- SUPER CALENDAR
+Được nha. Mình đã đọc lại **file đặc tả SuperCalendar hiện tại** và sẽ lấy phần mô tả mới của bạn làm **yêu cầu cập nhật chính**, thay vì giữ nguyên các phần cũ nếu chúng bị mâu thuẫn. Đặc tả hiện tại đang có các phần Calendar, To-do, Notes, Theme/VIP, Template, Lock Screen... nên mình sẽ **mở rộng và chỉnh lại cấu trúc**, chứ không cần viết lại từ đầu. 
 
- Product & Software Specification — Prototype v0.1
+Đặc biệt, mình thấy có vài thay đổi khá lớn so với bản cũ:
 
-Nền tảng mục tiêu: Android trước, iOS trong giai đoạn sau
-Framework: Flutter
-Ngôn ngữ chính: Dart
-Native Android: Kotlin khi cần truy cập chức năng hệ thống
-Trạng thái: Prototype / Test
-Mục tiêu: Xây dựng một ứng dụng productivity kết hợp Calendar, To-do, Notes và Lock Screen Quick Actions, với hệ thống Theme/Template có khả năng mở rộng thành VIP và Marketplace trong tương lai.
+### 1. Navigation / Taskbar
 
----
+Mình đề xuất taskbar dưới cùng gồm **5 mục chính**:
 
- 1. TỔNG QUAN SẢN PHẨM
+| Tab              | Chức năng                                                   |
+| ---------------- | ----------------------------------------------------------- |
+| 🏠 **Trang chủ** | Dashboard, hướng dẫn, template/widget, tổng quan nhanh      |
+| 📅 **Lịch**      | Month / Week, Event, Goals, Habit                           |
+| ✅ **Cần làm**    | To-do List                                                  |
+| 📝 **Ghi chú**   | Notes / Quick Notes                                         |
+| ⚙️ **Cài đặt**   | Account, Appearance, Language, Date & Time, Notification... |
 
- 1.1. Ý tưởng
+Mình **không khuyên nhét VIP/Template Store thành một tab riêng** vì sẽ làm taskbar hơi rối. Hai phần này có thể nằm trong **Trang chủ** hoặc **Cài đặt → VIP & Templates**.
 
-SuperCalendar là một ứng dụng quản lý lịch trình và công việc cá nhân, lấy cảm hứng từ các ứng dụng như Google Calendar và Notion nhưng tập trung vào một trải nghiệm đơn giản hơn:
+Ngoài ra, nếu sau này muốn thêm một tính năng rất hợp với app thì mình đề xuất:
 
- Quản lý lịch trình.
- Quản lý To-do.
- Ghi chú.
- Nhắc lịch.
- Hiển thị lịch trình trực tiếp trên Lock Screen.
- Cho phép thao tác nhanh với To-do ngay trên Lock Screen.
- Cá nhân hóa giao diện bằng Theme.
- Trong tương lai cho phép người dùng tạo và bán Template.
-
-Điểm khác biệt chính của SuperCalendar là:
-
-> Người dùng có thể nhìn thấy lịch trình của mình ngay trên Lock Screen và thực hiện các thao tác nhanh với To-do mà không cần mở toàn bộ ứng dụng.
-
----
-
- 2. MỤC TIÊU CỦA PHIÊN BẢN PROTOTYPE
-
-Prototype đầu tiên không nhằm mục đích thương mại hóa ngay.
-
-Mục tiêu là chứng minh các ý tưởng cốt lõi:
-
-1. Người dùng có thể quản lý Calendar.
-2. Người dùng có thể quản lý To-do.
-3. Người dùng có thể tạo và quản lý Notes.
-4. Dữ liệu được lưu trên thiết bị.
-5. Ứng dụng có thể đọc lịch hệ thống nếu người dùng cấp quyền.
-6. Ứng dụng có thể gửi Notification.
-7. Lock Screen có thể hiển thị lịch trình.
-8. Lock Screen có khu vực To-do có thể thao tác.
-9. Theme có thể thay đổi giao diện.
-10. Có thể mô phỏng VIP.
-11. Có thể mô phỏng việc mua và áp dụng Template.
-12. Có thể mô phỏng Marketplace mà chưa cần thanh toán thật.
-
----
-
- 3. ĐỐI TƯỢNG NGƯỜI DÙNG
-
- 3.1. Người dùng thông thường
-
-Có thể:
-
- Xem lịch (dưới dạng tháng/ tuần).
- Tạo lịch.
- Chỉnh sửa lịch.
- Xóa lịch.
- Tạo To-do.
- Hoàn thành To-do.
- Tạo Notes.
- Nhận Notification.
- Xem lịch trên Lock Screen.
- Sử dụng Theme mặc định.
- Mua/sử dụng Template có sẵn trong prototype.
-
- 3.2. VIP User
-
-Có thêm:
-
- Custom Theme.
- Theme Builder.
- Custom colors.
- Custom typography.
- Custom layout.
- Tùy chỉnh Lock Screen.
- Tạo Template.
- Publish Template.
- Trong tương lai: bán Template.
-
- 3.3. Creator
-
-Trong phiên bản Marketplace tương lai:
-
- Tạo Template.
- Upload Template.
- Thêm tên, mô tả, preview.
- Đặt giá.
- Publish.
- Theo dõi lượt mua.
- Nhận doanh thu.
-
----
-
- 4. PHẠM VI PHIÊN BẢN PROTOTYPE
-
- 4.1. Có trong Prototype
-
- Core
-
- Calendar
- To-do
- Notes
- Local Database
- Theme
- Notification
- System Calendar Integration
- Lock Screen
- Mock VIP
- Mock Payment
- Mock Template Marketplace
-
- 4.2. Chưa cần triển khai thật
-
- Real payment.
- Real subscription.
- Real creator payout.
- Cloud synchronization.
- Server authentication.
- Social login.
- Real marketplace transaction.
- Revenue sharing.
- iOS version.
- Multi-device synchronization.
-
----
-
- 5. NGUYÊN TẮC UI/UX
-
- 5.1. Phong cách mặc định
-
-SuperCalendar sử dụng phong cách:
-
- Minimalist.
- Clean.
- Modern.
- Soft.
- Premium nhưng không quá cầu kỳ.
-
- 5.2. Màu chủ đạo
-
-Các màu mặc định:
-
- White.
- Light Gray.
- Pastel Pink.
- Pastel Blue.
- Pastel Green.
- Pastel Purple.
- Pastel Yellow.
-
-Không sử dụng quá nhiều màu mạnh trong Theme mặc định.
-
- 5.3. Typography
-
-Font mặc định:
-
- Sans-serif.
- Dễ đọc.
- Không chân.
- Hierarchy rõ ràng.
+**Trang chủ → Today / Dashboard**
 
 Ví dụ:
 
+> Good morning 👋
+>
+> 📅 Today
+> 3 events
+>
+> ✅ Tasks
+> 4/7 completed
+>
+> 🎯 Today's Goal
+> Study Flutter 2 hours
+>
+> 🔥 Habit
+> Drink water ✓
 
-Heading
-Subheading
-Body
-Caption
-
-
- 5.4. UI components
-
-Các component nên có:
-
- Rounded cards.
- Rounded buttons.
- Soft shadows.
- Minimal icons.
- Large whitespace.
- Clear hierarchy.
+Như vậy Home thực sự có lý do để tồn tại, thay vì chỉ là trang trung gian.
 
 ---
 
- 6. KIẾN TRÚC TỔNG QUAN
+### 2. Trang chủ sẽ đổi khá nhiều
 
-Prototype được chia thành:
+Theo mô tả mới của bạn, Home không phải một calendar lớn nữa mà giống **trang giới thiệu + dashboard + template center**.
 
+Mình sẽ thiết kế đặc tả theo kiểu:
 
-SuperCalendar
-│
-├── Flutter Application
-│   ├── UI
-│   ├── Business Logic
-│   ├── State Management
-│   └── Local Data Access
-│
-├── Local Database
-│
-└── Android Native Layer
-    ├── System Calendar
-    ├── Notification
-    └── Lock Screen / Quick Actions
+**SUPER CALENDAR**
 
-
-Flutter chịu trách nhiệm chính.
-
-Kotlin/Android Native chỉ được sử dụng khi cần giao tiếp với Android OS.
-
----
-
- 7. CÁC MÀN HÌNH CHÍNH
-
- 7.1. Home
-
-Home là màn hình tổng quan.
-
-Nội dung:
-
-
-Good morning
-
-Today
-October 2
-
-Next event
-18:00 — Java
-
-Tasks
-☐ Finish assignment
-☐ Review Flutter
-
-Quick access
-Calendar
-Tasks
-Notes
-
-
----
-
- 8. CALENDAR
-
- 8.1. Chế độ Month View
-
-Hiển thị:
-
-
-October 2026
-
-Mon Tue Wed Thu Fri Sat Sun
-             1   2   3   4
- 5   6   7   8   9  10  11
-
-
-Ngày có lịch có thể được đánh dấu bằng:
-
- Dot.
- Accent color.
- Highlight.
-
- 8.2. Day View
-
-Ví dụ:
-
-
-Friday, October 2
-
-18:00 ── Java
-         Room A203
-
-20:00 ── Flutter
-         SuperCalendar
-
-
- 8.3. Event
-
-Một Event bao gồm:
-
-
-Event
-├── ID
-├── Title
-├── Description
-├── Start DateTime
-├── End DateTime
-├── Location
-├── Reminder
-├── Color
-└── Source
-
-
-Source có thể là:
-
-
-local
-system_calendar
-
-
----
-
- 9. TÍCH HỢP SYSTEM CALENDAR
-
-Ứng dụng có thể yêu cầu quyền truy cập Calendar của Android.
-
-Flow:
-
-
-User opens Calendar
-        ↓
-Request Calendar Permission
-        ↓
-Allow?
-    ├── Yes
-    │    ↓
-    │ Read system events
-    │    ↓
-    │ Display events
-    │
-    └── No
-         ↓
-      Use local events
-
-
-Ứng dụng phải giải thích rõ lý do cần quyền.
-
-Không được giả định rằng người dùng luôn cấp quyền.
-
----
-
- 10. TO-DO SYSTEM
-
- 10.1. Task
-
-Một Task gồm:
-
-
-Task
-├── ID
-├── Title
-├── Description
-├── Due Date
-├── Due Time
-├── Priority
-├── Completed
-├── Created At
-└── Updated At
-
-
- 10.2. Task State
-
-
-Incomplete
-     ↓
-Completed
-
-
-Khi người dùng tick:
-
-
-completed = true
-
-
- 10.3. Task UI
-
-
-MY TASKS
-
-☐ Finish Java exercise
-☐ Push Flutter project
-☑ Submit assignment
-
-
----
-
- 11. NOTES
-
-Notes có thể được thiết kế đơn giản trong Prototype.
-
-Một Note:
-
-
-Note
-├── ID
-├── Title
-├── Content
-├── Created At
-└── Updated At
-
-
-Ví dụ:
-
-
-School
-├── Java notes
-├── Flutter notes
-└── English notes
-
-
-Chưa cần xây hệ thống block editor phức tạp như Notion.
-
----
-
- 12. NOTIFICATION SYSTEM
-
-Notification được sử dụng cho:
-
- Event reminder
-
-
-SuperCalendar
-
-Upcoming event
-
-Java
-18:00
-Room A203
-
-
- Task reminder
-
-
-SuperCalendar
-
-Task reminder
-
-Finish Java exercise
-
-
-Notification có thể có Action:
-
-
-[Done]
-[Snooze]
-
-
-Khi người dùng bấm Done:
-
-
-Notification Action
-       ↓
-Find Task
-       ↓
-completed = true
-       ↓
-Save database
-       ↓
-Update UI
-
-
----
-
- 13. LOCK SCREEN
-
-Đây là tính năng đặc trưng của SuperCalendar.
-
- 13.1. Cấu trúc
-
-Lock Screen gồm hai khu vực:
-
-
-┌─────────────────────┐
-│                            │
-│        SYSTEM TIME         │
-│                            │
-│ ────── SCHEDULE ────── │
-│                            │
-│ 18:00  Java                │
-│        Room A203           │
-│                            │
-│ 20:00  Flutter             │
-│                            │
-│─────────────────────│
-│                            │
-│ ─────── TO-DO ────────│
-│                            │
-│ ☐ Finish Java          ✓  │
-│ ☐ Push code            ✓  │
-│                            │
-│ + Add Task                 │
-│                            │
-└─────────────────────┘
-
-
----
-
- 14. LOCK SCREEN — SCHEDULE
-
-Schedule chỉ có quyền:
-
- View.
-
-Không cho phép:
-
- Edit.
- Delete.
- Drag.
- Reschedule.
-
-Khi người dùng click vào Event:
-
-
-Lock Screen
-     ↓
-Click Event
-     ↓
-Open SuperCalendar
-     ↓
-System authentication if required
-     ↓
-Event detail
-
-
-Ứng dụng không tự thu thập PIN/password của người dùng.
-
-Việc xác thực phải dựa trên cơ chế bảo mật của hệ điều hành.
-
----
-
- 15. LOCK SCREEN — TO-DO
-
-To-do có quyền tương tác nhanh.
-
- 15.1. Complete
-
-
-☐ Finish assignment
-        ↓
-       ✓
-        ↓
-completed = true
-
-
-Dữ liệu được lưu vào database.
-
-App chính sẽ phản ánh:
-
-
-☑ Finish assignment
-
-
- 15.2. Add Task
-
-Có thể cung cấp Quick Add.
-
-Ví dụ:
-
-
-+ Add Task
-
-
-Mở giao diện nhập task tối giản.
-
-Task sau khi tạo phải được lưu vào cùng database với app chính.
-
----
-
- 16. DATA SYNCHRONIZATION TRONG THIẾT BỊ
-
-Prototype không cần server.
-
-Mọi dữ liệu nằm trên thiết bị:
-
-
-Flutter
-   ↓
-Local Database
-   ↓
-Calendar
-Task
-Notes
-
-
-Lock Screen và Notification cũng đọc/ghi dữ liệu từ cùng nguồn dữ liệu.
-
-Mục tiêu:
-
-> Một dữ liệu duy nhất, nhiều giao diện sử dụng.
-
-Ví dụ:
-
-
-Task:
-Finish Java
-
-Database:
-completed = false
-
-
-User tick trên Lock Screen:
-
-
-completed = true
-
-
-App chính lập tức hiển thị:
-
-
-☑ Finish Java
-
-
----
-
- 17. THEME SYSTEM
-
-Theme phải được xây dựng như một hệ thống độc lập với dữ liệu.
-
-Không hard-code màu trực tiếp trong từng màn hình.
-
-Theme gồm:
-
-
-Theme
-├── Colors
-├── Typography
-├── Spacing
-├── Border Radius
-├── Shadows
-├── Icons
-└── Component styles
-
-
-Ví dụ:
-
-
-Pastel Pink Theme
-Primary = Pink
-Background = White
-Surface = Soft Pink
- = Dark Gray
-
-
----
-
- 18. DEFAULT THEME
-
-Prototype có thể bắt đầu với:
-
- Pastel Minimal
-
-
-Background: White
-Surface: Light Gray
-Primary: Pastel Pink
-Secondary: Pastel Purple
-: Dark Gray
-Font: Sans-serif
-
-
-Có thể bổ sung:
-
- Pastel Blue.
- Pastel Green.
- Minimal Gray.
-
----
-
- 19. VIP SYSTEM
-
-Trong Prototype, VIP chỉ là trạng thái giả lập.
-
-
-User
-├── isVip: true/false
-
-
- Free User
-
-Có:
-
- Default Theme.
- Basic customization.
- Marketplace.
- Purchased Templates.
-
-Không có:
-
- Full Theme Builder.
- Create Template.
- Sell Template.
-
- VIP User
-
-Có:
-
- Full Theme Builder.
- Custom Colors.
- Custom Typography.
- Custom Layout.
- Custom Lock Screen.
- Create Template.
- Publish Template.
-
----
-
- 20. MOCK PAYMENT
-
-Prototype không xử lý tiền thật.
-
-Flow:
-
-
-VIP
- ↓
-Subscribe
- ↓
-Test Payment
- ↓
-Payment Success
- ↓
-isVip = true
-
-
-Có thể có:
-
-
-PaymentResult
-├── Success
-├── Failed
-└── Cancelled
-
-
-Mục tiêu chỉ là kiểm tra business logic.
-
----
-
- 21. TEMPLATE SYSTEM
-
-Template là một gói thiết lập giao diện.
-
-Một Template có thể chứa:
-
-
-Template
-├── ID
-├── Name
-├── Description
-├── Author
-├── Preview
-├── Price
-├── Colors
-├── Typography
-├── Layout
-├── Lock Screen Style
-└── Metadata
-
-
-Ví dụ:
-
-
-Sakura Morning
-
-Pastel pink productivity theme.
-
-Price:
-29,000đ
-
-[Preview]
-[Buy]
-
-
----
-
- 22. TEMPLATE MARKETPLACE — PROTOTYPE
-
-Marketplace giả lập:
-
-
-Template Store
-
-🌸 Sakura Morning
-🩵 Ocean Study
-🌿 Forest
-🩶 Minimal Gray
-
-
-Click Template:
-
-
-Preview
-Description
-Creator
-Price
-
-[Buy]
-
-
-Mock purchase:
-
-
-Buy
- ↓
-Purchase Success
- ↓
-Template unlocked
- ↓
-Apply
-
-
-Không cần payment thật.
-
----
-
- 23. CREATOR SYSTEM — PROTOTYPE
-
-VIP user có thể:
-
-
-Create Template
-       ↓
-Design
-       ↓
-Preview
-       ↓
-Set Name
-       ↓
-Set Price
-       ↓
-Publish
-
-
-Template được lưu trong database prototype.
-
-Chưa cần server.
-
----
-
- 24. DATA MODEL
-
- User
-
-
-User
-├── id
-├── name
-├── isVip
-├── selectedThemeId
-└── createdAt
-
-
- Event
-
-
-Event
-├── id
-├── title
-├── description
-├── startTime
-├── endTime
-├── location
-├── reminder
-├── color
-└── source
-
-
- Task
-
-
-Task
-├── id
-├── title
-├── description
-├── dueDate
-├── dueTime
-├── priority
-├── completed
-├── createdAt
-└── updatedAt
-
-
- Note
-
-
-Note
-├── id
-├── title
-├── content
-├── createdAt
-└── updatedAt
-
-
- Theme
-
-
-Theme
-├── id
-├── name
-├── colors
-├── typography
-├── spacing
-├── radius
-└── lockScreenStyle
-
-
- Template
-
-
-Template
-├── id
-├── name
-├── description
-├── creatorId
-├── price
-├── preview
-├── themeData
-└── published
-
-
- Purchase
-
-
-Purchase
-├── id
-├── userId
-├── templateId
-├── price
-├── status
-└── purchasedAt
-
-
----
-
- 25. ĐIỀU HƯỚNG APP
-
-Navigation cơ bản:
-
-
-Home
-│
-├── Calendar
-│
-├── Tasks
-│
-├── Notes
-│
-└── Settings
-     │
-     ├── Appearance
-     ├── VIP
-     └── Template Store
-
-
-Có thể dùng Bottom Navigation:
-
-
-┌─────────────────────────────┐
-│                             │
-│         CONTENT             │
-│                             │
-├─────────────────────────────┤
-│ Calendar │ Tasks │ Notes │ + │
-└─────────────────────────────┘
-
-
----
-
- 26. SETTINGS
-
-Settings gồm:
-
- Appearance
-
- Theme.
- Light/Dark.
- Accent color.
-
- Notifications
-
- Enable/Disable.
- Reminder timing.
-
- Calendar
-
- Calendar permission.
- Default calendar.
-
- VIP
-
- VIP status.
- Available features.
-
- Templates
-
- Purchased templates.
- Created templates.
-
----
-
- 27. QUYỀN HỆ THỐNG
-
-Prototype có thể cần:
-
- Calendar permission
-
-Để đọc lịch hệ thống.
-
- Notification permission
-
-Để gửi notification.
-
- Các quyền Android khác
-
-Chỉ yêu cầu khi thực sự cần thiết.
-
-Nguyên tắc:
-
-> Không xin quyền nếu tính năng chưa sử dụng.
-
----
-
- 28. BẢO MẬT
-
-Ứng dụng không được:
-
- Lưu PIN/password của người dùng.
- Tự tạo màn hình giả mạo hệ thống để lấy password.
- Lưu thông tin xác thực hệ thống.
-
-Khi cần bảo vệ nội dung, sử dụng cơ chế authentication của Android.
-
-Dữ liệu Lock Screen cũng cần được thiết kế sao cho không vô tình hiển thị thông tin nhạy cảm.
-
----
-
- 29. BACKEND
-
- Prototype
-
-Không bắt buộc backend.
-
-
-Flutter
- ↓
-Local Database
-
-
- Future Production
-
-Có thể chuyển thành:
-
-
-Flutter
- ↓
-API
- ↓
-Backend
- ↓
-Database
-
-
-Backend tương lai xử lý:
-
- Account.
- Login.
- Cloud Sync.
- Templates.
- Marketplace.
- Purchases.
- Creator.
- Revenue.
-
----
-
- 30. PAYMENT — FUTURE
-
-Payment thật không nằm trong Prototype v0.1.
-
-Trong phiên bản thương mại:
-
-
-User
- ↓
-Purchase VIP / Template
- ↓
-Platform Billing / Payment Provider
- ↓
-Payment Verification
- ↓
-Backend
- ↓
-Grant entitlement
-
-
-Không tự xử lý thông tin thẻ từ đầu.
-
----
-
- 31. MARKETPLACE — FUTURE
-
-Khi triển khai thật:
-
-
-Creator
- ↓
-Publish Template
- ↓
-Marketplace
- ↓
-Buyer purchases
- ↓
-Payment
- ↓
-Platform commission
- ↓
-Creator payout
-
-
-Cần bổ sung:
-
- User authentication.
- Creator verification.
- Payment.
- Refund.
- Transaction management.
- Moderation.
- Copyright handling.
- Revenue sharing.
- Security.
- Terms of service.
-
----
-
- 32. ANDROID / IOS
-
- Android
-
-Là nền tảng phát triển đầu tiên.
-
-Ưu tiên:
-
-1. Flutter UI.
-2. Android Emulator.
-3. Android native integration.
-4. System Calendar.
-5. Notification.
-6. Lock Screen.
-
- iOS
-
-Được triển khai sau Android.
-
-Có thể cần các công nghệ/API riêng của Apple cho:
-
- Calendar access.
- Notifications.
- Widgets.
- Lock Screen.
- Live Activities.
-
-Không giả định rằng implementation Android có thể copy nguyên sang iOS.
-
----
-
- 33. KIẾN TRÚC CODE ĐỀ XUẤT
-
-Prototype có thể tổ chức:
-
-
-lib/
-│
-├── main.dart
-│
-├── app/
-│   ├── app.dart
-│   ├── routes.dart
-│   └── theme/
-│
-├── features/
-│   ├── calendar/
-│   ├── tasks/
-│   ├── notes/
-│   ├── settings/
-│   ├── vip/
-│   └── templates/
-│
-├── data/
-│   ├── models/
-│   ├── database/
-│   └── repositories/
-│
-├── services/
-│   ├── notification/
-│   ├── calendar/
-│   └── theme/
-│
-└── widgets/
-    ├── common/
-    ├── calendar/
-    └── tasks/
-
-
-Android native:
-
-
-android/
-└── app/
-    └── src/
-        └── main/
-            └── kotlin/
-
-
-Kotlin chỉ dùng khi cần Android-specific functionality.
-
----
-
- 34. DEVELOPMENT ROADMAP
-
- Phase 0 — Environment
-
-Mục tiêu:
-
-
-Flutter
-VS Code
-Android Studio
-Android Emulator
-
-
-Kết quả:
-
-
-Hello SuperCalendar
-
-
----
-
- Phase 1 — UI
-
-Làm:
-
- Home.
- Calendar.
- Task.
- Notes.
- Navigation.
-
-Chưa cần database.
-
----
-
- Phase 2 — Data
-
-Làm:
-
- Event model.
- Task model.
- Note model.
- Local database.
- CRUD.
-
-CRUD:
-
-
-Create
-Read
-Update
-Delete
-
-
----
-
- Phase 3 — Calendar Integration
-
-Làm:
-
- Calendar permission.
- Read system calendar.
- Display events.
-
----
-
- Phase 4 — Notification
-
-Làm:
-
- Event reminder.
- Task reminder.
- Notification action.
- Done.
- Snooze.
-
----
-
- Phase 5 — Lock Screen
-
-Làm:
-
-
-Schedule
-READ ONLY
-
-
-và:
-
-
-To-do
-INTERACTIVE
-
+> Welcome / hướng dẫn sử dụng
 
 Sau đó:
 
- Complete Task.
- Add Task.
- Open App.
+**Widget Templates**
+
+* To Do
+* Habit
+* Week
+* Month
+* Goals
+* Notes
+* ... có thể mở rộng thêm
+
+Trong đó có khoảng **3 template miễn phí**.
+
+Các template khác sẽ có:
+
+🔒 **VIP**
+
+Khi user bấm vào template khóa → hiển thị:
+
+> This template is available for VIP users.
+> Upgrade to VIP to unlock.
+
+Điểm này khá hợp với hướng monetization mà bản cũ của bạn đã định hướng: VIP có Theme Builder, custom color, typography, layout và tạo Template. 
 
 ---
 
- Phase 6 — Theme
+### 3. Calendar sẽ trở thành một module lớn hơn
 
-Làm:
+Mình sẽ sửa Calendar thành:
 
- Theme system.
- Default pastel theme.
- Theme switching.
- Theme data model.
+**LỊCH**
 
----
+Góc trên:
 
- Phase 7 — VIP Prototype
+`[ WEEK ] [ MONTH ]                 [ + ]`
 
-Làm:
+User có thể:
 
- VIP screen.
- Mock subscription.
- `isVip`.
- Feature gating.
+* chuyển Week / Month
+* bấm `+` để tạo Event
+* hoặc **bấm trực tiếp vào ngày**
+* nhập:
 
----
+  * tên lịch trình
+  * ngày
+  * giờ bắt đầu
+  * giờ kết thúc
+  * màu
+  * ghi chú
+  * địa điểm
+  * reminder
+  * repeat
 
- Phase 8 — Template Prototype
-
-Làm:
-
- Template list.
- Template preview.
- Mock purchase.
- Apply template.
- Create template.
- Publish template.
+Nếu bấm trực tiếp vào ngày thì ngày đó được chọn sẵn → không cần nhập lại ngày.
 
 ---
 
- Phase 9 — Polish
+### 4. Goals
 
-Kiểm tra:
+Mình rất thích phần này và nghĩ nên đưa thẳng vào Calendar.
 
- UI.
- Animation.
- Error handling.
- Empty states.
- Loading states.
- Permission states.
- Accessibility.
- Responsive layout.
+Ví dụ Month:
 
----
+> **GOALS — OCTOBER**
+>
+> ○ Finish Flutter project
+> ○ Read 2 books
+> ○ Exercise 12 times
 
- 35. ACCEPTANCE CRITERIA
+Còn Week:
 
-Prototype được coi là hoàn thành khi:
+> **GOALS — OCT 5–11**
+>
+> ○ Finish Calendar UI
+> ○ Study Flutter 5 hours
+> ○ Complete assignment
 
- Calendar
+**Monthly Goal và Weekly Goal là hai loại dữ liệu khác nhau**, dù UI nằm cùng vị trí.
 
- [ ] Có thể xem Calendar.
- [ ] Có thể tạo Event.
- [ ] Có thể sửa Event.
- [ ] Có thể xóa Event.
- [ ] Event được lưu.
+Mình sẽ bổ sung vào Data Model:
 
- System Calendar
+`Goal`
 
- [ ] Có thể xin quyền.
- [ ] Có thể đọc Event khi được cấp quyền.
- [ ] App xử lý được trường hợp user từ chối quyền.
+* ID
+* Title
+* Description
+* Type: Week / Month
+* Start Date
+* End Date
+* Completed
+* Progress
+* Created At
+* Updated At
 
- Tasks
+Sau này còn có thể làm progress:
 
- [ ] Có thể tạo Task.
- [ ] Có thể hoàn thành Task.
- [ ] Có thể sửa Task.
- [ ] Có thể xóa Task.
- [ ] Task được lưu.
-
- Notes
-
- [ ] Có thể tạo Note.
- [ ] Có thể sửa Note.
- [ ] Có thể xóa Note.
-
- Notification
-
- [ ] Notification xuất hiện.
- [ ] Event reminder hoạt động.
- [ ] Task reminder hoạt động.
- [ ] Done action cập nhật Task.
-
- Lock Screen
-
- [ ] Schedule được hiển thị.
- [ ] Schedule không thể chỉnh sửa trực tiếp.
- [ ] Click Schedule mở app.
- [ ] To-do được hiển thị.
- [ ] To-do có thể complete.
- [ ] Add Task có thể thực hiện theo cơ chế Android cho phép.
- [ ] Dữ liệu Lock Screen đồng bộ với app.
-
- Theme
-
- [ ] Default Theme hoạt động.
- [ ] Có thể đổi Theme.
- [ ] Theme áp dụng cho app.
-
- VIP
-
- [ ] Mock payment hoạt động.
- [ ] VIP state được lưu.
- [ ] VIP features bị khóa với Free user.
- [ ] VIP user có thể sử dụng Theme Builder.
-
- Templates
-
- [ ] Có Template Store.
- [ ] Có Template detail.
- [ ] Mock purchase hoạt động.
- [ ] Template đã mua có thể Apply.
- [ ] VIP user có thể tạo Template.
- [ ] Creator có thể publish Template trong prototype.
+`██████░░░░ 60%`
 
 ---
 
- 36. ĐỊNH HƯỚNG PHÁT TRIỂN SAU PROTOTYPE
+### 5. Habit
 
-Sau khi Prototype hoạt động ổn định, có thể phát triển:
+Phần Habit nên tách khỏi Event.
 
+Ví dụ user tạo:
 
-                    PROTOTYPE
-                        │
-                        ↓
-                  Cloud Backend
-                        │
-            ┌───────────┴───────────┐
-            ↓                       ↓
-         Account                 Sync
-            │                       │
-            └───────────┬───────────┘
-                        ↓
-                   Real Payment
-                        │
-                        ↓
-                 VIP Subscription
-                        │
-                        ↓
-                Template Marketplace
-                        │
-             ┌──────────┴──────────┐
-             ↓                     ↓
-          Creator                 Buyer
-             │                     │
-             └──────────┬──────────┘
-                        ↓
-                  Revenue System
-                        │
-                        ↓
-                   Public App
+> **Drink Water**
 
+Sau đó chọn:
 
----
+* Every day
+* Every week
+* Specific days
+* Custom repeat
 
- 37. PRODUCT IDENTITY
+Ví dụ:
 
-SuperCalendar không nên được định vị đơn giản là:
+> Monday ✓
+> Tuesday ✓
+> Wednesday ✓
+> Thursday ✓
+> Friday ✓
 
-> "Một app giống Google Calendar."
+App tự tạo các occurrence theo rule.
 
-Mà là:
+Nhưng nếu một ngày user **không muốn thực hiện**, có thể bấm riêng ngày đó:
 
-> A personalized productivity app that puts your schedule where you see it first.
+> Oct 8
+> Drink Water
+> [Edit] [Delete occurrence]
 
-Ba yếu tố nhận diện chính:
+Quan trọng là mình sẽ thiết kế theo kiểu **Habit Rule + Habit Occurrence**, chứ không tạo một Habit hoàn toàn mới cho từng ngày.
 
-
-📅 PLAN
-   Calendar
-
-✅ DO
-   Tasks
-
-🎨 PERSONALIZE
-   Themes & Templates
-
-🔒 SEE IT FIRST
-   Lock Screen
-
-
-Điểm khác biệt cốt lõi:
-
-> Lock Screen là nơi người dùng nhìn thấy lịch trình và xử lý những task nhanh nhất, trong khi ứng dụng chính cung cấp toàn bộ trải nghiệm quản lý Calendar, Tasks và Notes.
+Như vậy sau này mới dễ xử lý repeat.
 
 ---
 
- 38. NGUYÊN TẮC PHÁT TRIỂN
+### 6. To-do sẽ chi tiết hơn rất nhiều
 
-1. Không xây tất cả cùng lúc.
-2. Ưu tiên Android trước.
-3. Flutter là nền tảng chính.
-4. Native Android chỉ dùng khi cần.
-5. Prototype trước, production sau.
-6. Payment giả trước, payment thật sau.
-7. Marketplace giả trước, marketplace thật sau.
-8. Local database trước, cloud database sau.
-9. UI và data phải tách biệt.
-10. Theme phải độc lập với dữ liệu.
-11. Lock Screen phải dùng cùng nguồn dữ liệu với app chính.
-12. Không lưu thông tin xác thực của hệ điều hành.
-13. Chỉ yêu cầu quyền khi thực sự cần.
-14. Mỗi tính năng phải được hoàn thiện và test trước khi chuyển sang tính năng tiếp theo.
+Mình sẽ đổi phần cũ từ một danh sách Task thông thường thành **TO-DO LIST editor**.
+
+Mặc định:
+
+> **TO-DO LIST**
+>
+> ─────────────────
+> ☐
+> ─────────────────
+> ☐
+> ─────────────────
+> ☐
+> ─────────────────
+
+Khoảng **36 dòng**, có thể scroll.
+
+Góc phải:
+
+**＋**
+
+Bấm `+`:
+
+1. tạo một dòng mới
+2. xuất hiện checkbox
+3. tự focus vào dòng
+4. con trỏ sẵn sàng nhập text
+
+Ví dụ:
+
+> ☐ Finish Java assignment
+
+Sau khi tạo xong, cuối task có:
+
+**Edit**
+
+Bấm Edit có thể mở phần chi tiết:
+
+* Title
+* Description
+* Due date
+* Due time
+* Priority
+* Reminder
+* Repeat
+* Category
+* Color
+* Note
+* Attachment
+* Subtasks
+* Tags
+* Estimated time
+
+Mình đặc biệt đề xuất thêm **Subtasks**.
+
+Ví dụ:
+
+> ☐ Finish Java assignment
+> `Edit`
+>
+> Subtasks:
+>
+> * ☐ Write code
+> * ☐ Test
+> * ☐ Submit
+
+Cái này sẽ làm To-do của app mạnh hơn nhiều mà vẫn giữ được UI minimal.
 
 ---
 
- 39. MỤC TIÊU CUỐI CÙNG
+### 7. Settings
 
-SuperCalendar hướng tới một hệ sinh thái:
+Mình sẽ xây Settings thành các nhóm rõ ràng:
 
+**ACCOUNT**
 
-                 SUPER CALENDAR
-                        │
-       ┌────────────────┼────────────────┐
-       ↓                ↓                ↓
-    CALENDAR           TASKS           NOTES
-       │                │                │
-       └────────────────┼────────────────┘
-                        ↓
-                  LOCK SCREEN
-                        │
-              ┌─────────┴─────────┐
-              ↓                   ↓
-          Schedule              To-do
-          Read only           Interactive
-                                  │
-                                  ↓
-                              Quick Add
-                        
-                        ↓
-                     THEMES
-                        │
-              ┌─────────┴─────────┐
-              ↓                   ↓
-            Free                 VIP
-                                  │
-                           Theme Builder
-                                  │
-                                  ↓
-                              Templates
-                                  │
-                                  ↓
-                            Marketplace
-                                  │
-                       ┌──────────┴──────────┐
-                       ↓                     ↓
-                    Creator                Buyer
+* Account
+* Profile
+* VIP Status
 
+**APPEARANCE**
 
-Phiên bản đầu tiên không cần đạt đến toàn bộ hệ thống này.
+* Theme
+* Custom Color 🔒 VIP
+* Widget Style
+* Font 🔒 VIP
+* Layout 🔒 VIP
+* Dark Mode
 
-Mục tiêu đầu tiên chỉ là:
+**CALENDAR**
 
-> Xây được một SuperCalendar chạy thật trên Android, có Calendar + To-do + Notes + Notification + Lock Screen, sử dụng giao diện pastel/minimal và lưu dữ liệu trên thiết bị.
+* Default Calendar
+* Week starts on
+* Calendar permissions
+* Default event duration
 
-Sau khi phần này chạy ổn, VIP và Marketplace sẽ được xây như những lớp tính năng tiếp theo.
+**TASKS**
+
+* Default priority
+* Completed task behavior
+* Default reminder
+
+**NOTIFICATIONS**
+
+* Enable notifications
+* Event reminder
+* Task reminder
+* Habit reminder
+* Goal reminder
+
+**LANGUAGE & REGION**
+
+* Language
+* Date format
+* Time format
+* First day of week
+
+**LOCK SCREEN**
+
+* Enable Lock Screen
+* Schedule visibility
+* To-do visibility
+* Quick Note
+
+**HELP**
+
+* Hướng dẫn sử dụng
+* FAQ
+* About SuperCalendar
+
+**APP**
+
+* Version
+* Privacy
+* Terms
+
+---
+
+### 8. Lock Screen cũng cần sửa theo mô tả mới
+
+Bản hiện tại đang mô tả Schedule + To-do, nhưng bạn vừa thay đổi thành **3 khu vực**. Bản cũ hiện ghi Lock Screen có Schedule và To-do, còn Quick Add Note mới chỉ được mô tả sơ bộ. 
+
+Mình sẽ sửa thành:
+
+**LOCK SCREEN**
+
+### Section 1 — Schedule
+
+Hiển thị lịch trình.
+
+* Read-only
+* Không edit trực tiếp
+* Không delete
+* Tap → mở app
+
+### Section 2 — To-do
+
+Hiển thị task.
+
+Prototype có thể cho:
+
+* xem task
+* tick complete
+
+### Section 3 — Quick Note
+
+Cho phép Android sử dụng **thanh thông báo của SuperCalendar** để nhập nhanh note.
+
+Ví dụ:
+
+> 📝 SuperCalendar
+> Quick Note
+> `[ Type something... ]`
+
+Sau khi lưu → Note được lưu vào database chung.
+
+Điểm này cũng phù hợp với nguyên tắc hiện tại của spec là Lock Screen/Notification phải sử dụng **cùng nguồn dữ liệu với app chính**. 
+
+---
+
+## Một thay đổi mình rất muốn bổ sung vào đặc tả
+
+Hiện tại model dữ liệu của bạn mới có:
+
+`User / Event / Task / Note / Theme / Template / Purchase` 
+
+Với chức năng mới, mình nghĩ phải thêm:
+
+```text
+Goal
+Habit
+HabitOccurrence
+WidgetTemplate
+TaskSubtask
+Category
+```
+
+Đặc biệt **WidgetTemplate** và **Theme** nên tách nhau.
+
+Vì:
+
+**Theme**
+
+> màu + font + radius + shadow + overall appearance
+
+Còn:
+
+**Widget Template**
+
+> cách một loại widget được bố trí.
+
+Ví dụ:
+
+```text
+Theme
+└── Pastel Pink
+
+Widget Template
+└── To-Do Minimal
+    ├── Layout
+    ├── Checkbox Style
+    ├── Typography
+    ├── Spacing
+    └── Preview
+```
+
+Như vậy sau này user có thể:
+
+> Theme: Pastel Pink
+> To-Do Widget: Minimal 01
+> Habit Widget: Soft Grid
+> Calendar Widget: Monthly Clean
+
+→ Đây sẽ là nền tảng rất tốt cho hệ thống **VIP + Template Marketplace** sau này.
+
+---
+
+**Tóm lại:** mình sẽ không chỉ "chèn" phần bạn vừa nói vào file cũ, mà sẽ **refactor lại đặc tả để các chức năng mới khớp với nhau**, đặc biệt là `Navigation → Home → Calendar → Goals/Habit → To-do → Notes → Settings → VIP/Template → Lock Screen`.
+
+Nếu mình viết bản đặc tả hoàn chỉnh tiếp theo, mình sẽ giữ **văn phong và cấu trúc kiểu tài liệu kỹ thuật hiện tại**, đánh số lại các section và cập nhật cả **Data Model, Navigation, UI/UX, VIP, Template, Acceptance Criteria và Roadmap** để sau này bạn có thể dùng chính file đó làm tài liệu phát triển Flutter.
